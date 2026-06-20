@@ -1,0 +1,48 @@
+{
+  "_nota": "Contenido editable de la sección de financiamiento. La evaluación final SIEMPRE se realiza presencialmente en tienda (o según defina el negocio) — este JSON no debe usarse para procesar créditos, solo para mostrar información referencial. No publicar plazos, montos ni tasas reales sin aprobación explícita.",
+
+  "titulo": "Financiamiento a tu medida",
+  "descripcion": "Opciones de financiamiento pendientes de aprobación. Evaluación final sujeta a confirmación.",
+  "texto": "Opciones de financiamiento pendientes de aprobación",
+  "avisoPresencial": "La evaluación y aprobación final del financiamiento se realiza según los criterios y políticas internas de {{NOMBRE_CLIENTE}}, sujeta a confirmación.",
+  "financiamientoConfirmado": false,
+  "estadoAprobacion": "pendiente",
+
+  "requisitos": [
+    "PENDIENTE: requisito 1",
+    "PENDIENTE: requisito 2",
+    "PENDIENTE: requisito 3"
+  ],
+
+  "documentosSolicitados": [
+    "PENDIENTE: documento 1",
+    "PENDIENTE: documento 2",
+    "PENDIENTE: documento 3"
+  ],
+
+  "pasos": [
+    "Solicitud de cotización en tienda o por WhatsApp",
+    "Presentación de documentación requerida",
+    "Evaluación de la solicitud",
+    "Aprobación y firma de contrato",
+    "Entrega del producto"
+  ],
+
+  "entidadesFinancieras": [
+    "PENDIENTE: nombre de entidad 1",
+    "PENDIENTE: nombre de entidad 2"
+  ],
+
+  "condicionesReferenciales": {
+    "planes": [],
+    "plazo": "PENDIENTE",
+    "cuotaInicialMinima": "PENDIENTE",
+    "tasaReferencial": "PENDIENTE",
+    "moneda": "{{MONEDA}}",
+    "nota": "Sin planes ni plazos concretos hasta que el negocio confirme condiciones reales. Valores referenciales no vinculantes."
+  },
+
+  "disclaimer": "La información de financiamiento mostrada en el sitio es referencial e informativa. No constituye una oferta de crédito formal. Todas las condiciones reales se determinan y formalizan según el proceso del negocio.",
+
+  "whatsappFinanciamiento": "pendiente"
+}

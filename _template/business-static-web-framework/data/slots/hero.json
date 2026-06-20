@@ -1,0 +1,27 @@
+{
+  "_nota": "Slot editable del HERO. No representa diseño final — solo contenido y referencias de medios. Cambiar valores aquí no cambia la estética, solo el texto/recursos que se inyectan.",
+
+  "eyebrow": "{{RUBRO_CLIENTE}} · {{CIUDAD}}, {{PAIS}}",
+  "tituloPrincipal": "{{NOMBRE_CLIENTE}}",
+  "subtitulo": "Encuentra lo que buscas en {{CIUDAD}}. Catálogo completo y atención personalizada.",
+  "ctaPrincipal": {
+    "texto": "Ver catálogo",
+    "href": "#catalogo"
+  },
+  "ctaSecundario": {
+    "texto": "Pedir cotización",
+    "href": "#cotizacion"
+  },
+  "modeloHero": {
+    "id": "PENDIENTE",
+    "nota": "PENDIENTE: definir qué producto protagoniza el hero. Puede no coincidir con el producto destacado del catálogo."
+  },
+  "imagenHero": "assets/hero/placeholder-hero.webp",
+  "videoHero": "assets/hero/placeholder-hero.mp4",
+  "marcaAgua": {
+    "activa": false,
+    "texto": "{{NOMBRE_CLIENTE}}",
+    "nota": "PENDIENTE: decidir si el hero lleva marca de agua tipográfica grande de fondo (recurso de diseño, no de contenido)."
+  },
+  "estadoAprobacion": "pendiente"
+}

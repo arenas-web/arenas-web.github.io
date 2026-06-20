@@ -1,0 +1,22 @@
+{
+  "_nota": "Información editable del servicio técnico/postventa. Confirmar todos los datos con el área correspondiente antes de publicar. No publicar afirmaciones de certificación, garantía o repuestos sin respaldo confirmado.",
+
+  "titulo": "Servicio técnico en {{CIUDAD}}",
+  "descripcion": "Servicio técnico sujeto a validación del cliente. Repuestos sujetos a disponibilidad y aprobación.",
+
+  "servicios": [
+    "Mantenimiento — condiciones por confirmar",
+    "Diagnóstico técnico — disponibilidad pendiente de confirmación",
+    "Repuestos sujetos a disponibilidad y aprobación",
+    "Reparaciones según especialidad — condiciones por confirmar",
+    "Postventa sujeto a validación del modelo"
+  ],
+
+  "tecnicosCertificados": "pendiente",
+  "tiempoPromedioServicio": "pendiente",
+  "repuestosOriginalesDisponibles": "pendiente",
+  "fotoTaller": "assets/productos/demo/placeholder-taller.webp",
+  "whatsappServicioTecnico": "pendiente",
+
+  "estadoAprobacion": "pendiente"
+}

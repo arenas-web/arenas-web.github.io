@@ -1,0 +1,18 @@
+{
+  "_nota": "Metadatos SEO editables. Sincronizar manualmente con las etiquetas <meta> de index.html hasta que se automatice la inyección.",
+
+  "title": "{{SEO_TITLE}}",
+  "description": "{{SEO_DESCRIPTION}}",
+  "keywords": "{{RUBRO_CLIENTE}} {{CIUDAD}}, {{NOMBRE_CLIENTE}} {{CIUDAD}}, {{MARCA_PRINCIPAL}} {{CIUDAD}}, {{LINEA_PRODUCTO_1}}, {{LINEA_PRODUCTO_2}}, {{LINEA_PRODUCTO_3}}, {{RUBRO_CLIENTE}} {{PAIS}}",
+  "ogTitle": "{{SEO_TITLE}}",
+  "ogDescription": "{{SEO_DESCRIPTION}}",
+  "ogImage": "assets/og/placeholder-og-cover.webp",
+  "ogImageActiva": false,
+  "_notaOgImage": "El archivo aún no existe. Las etiquetas og:image/twitter:image están comentadas en index.html para no generar una vista previa rota al compartir. Subir el archivo real y descomentar ambos lugares cuando esté listo.",
+  "canonicalUrl": "https://{{DOMINIO_SITIO}}/",
+  "schemaPendiente": {
+    "tipo": "PENDIENTE",
+    "estado": "pendiente-implementar-json-ld",
+    "nota": "PENDIENTE: agregar structured data (schema.org) cuando haya datos reales de dirección, teléfono y horario confirmados. El tipo schema.org (ej. LocalBusiness, Store, AutoDealer) depende del rubro real del cliente."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "_nota": "Datos legales y comerciales de la empresa. NO inventar RUC, razón social ni representante legal. Dejar PENDIENTE hasta confirmación documental.",
+
+  "nombreComercial": "{{NOMBRE_CLIENTE}}",
+  "razonSocial": "PENDIENTE",
+  "ruc": "PENDIENTE",
+  "representanteLegal": "PENDIENTE",
+  "ciudad": "{{CIUDAD}}",
+  "pais": "{{PAIS}}",
+  "rubro": "{{RUBRO_CLIENTE}}",
+  "slogan": "{{SLOGAN_CLIENTE}}",
+  "conceptoMarca": "Negocio del rubro {{RUBRO_CLIENTE}} en {{CIUDAD}}, {{PAIS}}.",
+  "correoGeneral": "{{EMAIL_CONTACTO}}",
+  "horarioGeneral": "PENDIENTE",
+  "estadoDatos": "pendiente"
+}

@@ -1,0 +1,20 @@
+{
+  "_nota": "Números de WhatsApp segmentados por canal/sede. TODOS son PENDIENTE hasta que el negocio confirme números reales por canal. No usar el número placeholder de configuracion.json como real.",
+
+  "whatsappGeneral": "pendiente",
+  "whatsappVentas": "pendiente",
+  "whatsappFinanciamiento": "pendiente",
+  "whatsappServicioTecnico": "pendiente",
+  "whatsappRepuestos": "pendiente",
+  "whatsappSede1": "pendiente",
+  "whatsappSede2": "pendiente",
+
+  "mensajesPredefinidos": {
+    "ventas": "Hola {{NOMBRE_CLIENTE}}, estoy interesado/a en un producto. ¿Podrían darme información y cotización?",
+    "financiamiento": "Hola, quisiera información sobre las opciones de financiamiento disponibles.",
+    "servicioTecnico": "Hola, necesito agendar una atención técnica.",
+    "repuestos": "Hola, estoy buscando un repuesto. ¿Podrían ayudarme con disponibilidad y precio?"
+  },
+
+  "estadoAprobacion": "pendiente"
+}

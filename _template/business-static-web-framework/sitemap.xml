@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Las páginas en /legales/ usan <meta name="robots" content="noindex, follow">
+  y por lo tanto NO deben listarse aquí (Google Search Central recomienda no
+  incluir URLs noindex en el sitemap). Ver docs/correcciones-auditoria-codex.md.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://{{DOMINIO_SITIO}}/</loc>
+    <priority>1.00</priority>
+  </url>
+</urlset>

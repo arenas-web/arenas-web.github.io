@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://{{DOMINIO_SITIO}}/sitemap.xml
