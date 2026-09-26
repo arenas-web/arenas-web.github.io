@@ -163,8 +163,8 @@ SIN JERGA. Si usas una palabra técnica, explícala en la misma frase.
 DATOS QUE VAS A NECESITAR
 ════════════════════════════════════════════════════════
 
-REPOSITORIO   github.com/Arenasweb/arenasweb.github.io
-SITIO         arenasweb.github.io
+REPOSITORIO   github.com/Arenasweb/arenas-web.github.io
+SITIO         arenas-web.github.io
 LIBRO         «CATÁLOGO WEB ARENAS — PRODUCCIÓN» en Google Sheets
 
 LAS CINCO CATEGORÍAS, en minúscula. Cualquier otro valor hace que la moto
@@ -224,7 +224,7 @@ para practicar la subida de fotos sin tocar una moto real.
 Para comprobar que una foto subió bien no hace falta publicar nada: se abre
 su URL en el navegador.
 
-    https://arenasweb.github.io/assets/catalogo/<slug>/portada.webp
+    https://arenas-web.github.io/assets/catalogo/<slug>/portada.webp
 
 Si se ve la foto, la subida y la ruta son correctas.
 

@@ -31,7 +31,7 @@ import { fileURLToPath } from "node:url";
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const RAIZ = resolve(AQUI, "..");
 
-const VIEJO = "arenasweb.github.io";
+const VIEJO = "arenas-web.github.io";
 const NUEVO = (process.argv[2] || "").trim().toLowerCase();
 const SECO = process.argv.includes("--seco");
 

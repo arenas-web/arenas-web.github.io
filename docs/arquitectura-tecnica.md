@@ -22,7 +22,7 @@
 ## Estructura de archivos
 
 ```
-arenasweb.github.io/
+arenas-web.github.io/
 ├── index.html                 # Página principal — todas las secciones
 ├── style.css                  # Sistema CSS base (15 bloques)
 ├── script.js                  # Núcleo JS modular (14 módulos)

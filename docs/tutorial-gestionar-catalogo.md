@@ -30,7 +30,7 @@ que estar en GitHub, en esa dirección exacta, o la página lo busca y no lo
 encuentra.
 
 **Dirección del libro:** Google Sheets → *CATÁLOGO WEB ARENAS — PRODUCCIÓN*
-**Dirección del repositorio:** <https://github.com/Arenasweb/arenasweb.github.io>
+**Dirección del repositorio:** <https://github.com/Arenasweb/arenas-web.github.io>
 
 ---
 
@@ -124,7 +124,7 @@ Renombra los dos archivos exactamente `portada.webp` y `portada-mobile.webp`.
 
 ### B.2 — Subirla a GitHub
 
-1. Entra a <https://github.com/Arenasweb/arenasweb.github.io>
+1. Entra a <https://github.com/Arenasweb/arenas-web.github.io>
 2. Clic en la carpeta **`assets`**, luego en **`catalogo`**.
 3. Clic en la carpeta con el **slug** de tu moto (por ejemplo `pulsar-150r`).
    Si no existe, la creas en el paso siguiente escribiendo el nombre.
