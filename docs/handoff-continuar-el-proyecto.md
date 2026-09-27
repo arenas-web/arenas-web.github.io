@@ -38,7 +38,7 @@ LA ARQUITECTURA, EN UNA FRASE
 Google Sheets guarda LOS DATOS. GitHub guarda LOS ARCHIVOS. Un programa de
 Apps Script los conecta.
 
-  Repositorio:  github.com/Arenasweb/arenas-web.github.io
+  Repositorio:  github.com/arenas-web/arenas-web.github.io
   Sitio:        arenas-web.github.io
   Libro:        «CATÁLOGO WEB ARENAS — PRODUCCIÓN»
 

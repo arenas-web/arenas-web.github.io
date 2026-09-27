@@ -14,7 +14,7 @@ nada.
 > - `work/` — archivos locales de trabajo
 > - `.claude/` — la configuración del asistente
 >
-> Eso viene del respaldo del USB (`E:\ARENAS-RESPALDO-20260903`), no de
+> Eso viene del respaldo del USB (`ARENAS-RESPALDO-20260926`), no de
 > GitHub. Si clonas y nada más, el sitio funciona, pero los scripts que tocan
 > másters fallarán y será porque los archivos no están — no porque algo se
 > haya roto.
@@ -163,7 +163,7 @@ SIN JERGA. Si usas una palabra técnica, explícala en la misma frase.
 DATOS QUE VAS A NECESITAR
 ════════════════════════════════════════════════════════
 
-REPOSITORIO   github.com/Arenasweb/arenas-web.github.io
+REPOSITORIO   github.com/arenas-web/arenas-web.github.io
 SITIO         arenas-web.github.io
 LIBRO         «CATÁLOGO WEB ARENAS — PRODUCCIÓN» en Google Sheets
 

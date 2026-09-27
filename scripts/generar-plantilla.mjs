@@ -117,6 +117,12 @@ const TEXTO = [
   [/ARENAS MOTOCICLETAS/g, "NOMBRE DEL NEGOCIO"],
   [/Arenas Motocicletas/g, "Nombre del Negocio"],
   [/ARENAS_CATALOGO/g, "CATALOGO_WEB"],
+  // El orden importa: las formas con guion van ANTES que la regla
+  // genérica /\barenas\b/, que si no convertiría «arenas-web.github.io»
+  // en «negocio-web.github.io» y dejaría el nombre real a medio borrar.
+  [/arenas-web\.github\.io/g, "tu-usuario.github.io"],
+  [/arenas-web/g, "tu-usuario"],
+  [/Arenas-web/g, "tu-usuario"],
   [/arenasweb\.github\.io/g, "tu-usuario.github.io"],
   [/arenasweb/g, "tu-usuario"],
   [/Arenasweb/g, "tu-usuario"],
