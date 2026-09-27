@@ -47,11 +47,31 @@ function huella(ruta) {
   return h.digest("hex");
 }
 
+/* Dónde está el proyecto dentro del respaldo.
+   El respaldo de septiembre lo metía en `proyecto/arenas-web.github.io`;
+   el de septiembre 26 lo deja directamente en `proyecto/`. Se detecta en
+   vez de fijarlo: si se fija y la carpeta no coincide, el script no falla
+   —escribe un inventario de cuatro archivos— y eso es peor que fallar,
+   porque parece que el respaldo está vacío cuando está entero. */
+const CANDIDATOS = ["proyecto/arenas-web.github.io", "proyecto/arenasweb.github.io", "proyecto"];
+const RAIZ_PROYECTO = CANDIDATOS.find((c) => existsSync(join(USB, c, "index.html")));
+if (!RAIZ_PROYECTO) {
+  console.error("No encuentro el proyecto dentro de " + USB);
+  console.error("Busqué index.html en: " + CANDIDATOS.join(", "));
+  process.exit(1);
+}
+
 const bloques = [
-  ["proyecto/arenas-web.github.io", "El proyecto completo, con su historial de git dentro"],
+  [RAIZ_PROYECTO, "El proyecto completo, con su historial de git dentro"],
   ["plantilla-limpia", "El mismo sitio sin un solo dato del negocio"],
   ["claude-code-config", "Memoria, ajustes y transcritos de Claude Code"],
-];
+].filter(([rel]) => existsSync(join(USB, rel)));
+
+/* Los sueltos se listan aquí y no más abajo porque la cabecera nombra la
+   guía de restauración, y su extensión ha cambiado entre respaldos
+   (.md en el de septiembre, .txt en este). Remitir a un archivo que no
+   existe es peor que no remitir a ninguno. */
+const sueltos_ = readdirSync(USB).filter((n) => statSync(join(USB, n)).isFile());
 
 const L = [
   "# Inventario del respaldo",
@@ -59,7 +79,8 @@ const L = [
   "ARENAS MOTOCICLETAS — " + new Date().toISOString().slice(0, 10),
   "",
   "Para qué sirve cada cosa y cómo comprobar que llegó entera.",
-  "Las instrucciones de restauración están en `EMPEZAR-AQUI.md`.",
+  "Las instrucciones de restauración están en `" +
+    (sueltos_.find((n) => /^EMPEZAR-AQUI\./i.test(n)) || "EMPEZAR-AQUI.md") + "`.",
   "",
   "---",
   "",
@@ -92,8 +113,8 @@ L.push("Si esto se pierde, se pierde. No hay otra copia.", "");
 L.push("| Qué | Peso | Por qué no está en GitHub |");
 L.push("|---|---:|---|");
 
-const mat = archivos(join(USB, "proyecto/arenas-web.github.io/material-origen"));
-const fotos = archivos(join(USB, "proyecto/arenas-web.github.io/assets/catalogo"))
+const mat = archivos(join(USB, RAIZ_PROYECTO, "material-origen"));
+const fotos = archivos(join(USB, RAIZ_PROYECTO, "assets/catalogo"))
   .filter(f => f.ruta.includes("photos") && f.ruta.endsWith(".png"));
 L.push("| `material-origen/` | " + mb(mat.reduce((a, f) => a + f.bytes, 0)) +
   " MB | Buzón de material sin procesar. Fuera de Git a propósito: el repositorio es público y GitHub Pages sirve todo lo que hay dentro. |");
@@ -111,12 +132,11 @@ L.push("```", "");
 L.push("| Archivo | Peso | SHA-256 |");
 L.push("|---|---:|---|");
 
-const firmar = [
-  "arenas-historial-nuevo.bundle",
-  "arenas-historial-completo.bundle",
-  "EMPEZAR-AQUI.md",
-  "restaurar.ps1",
-];
+/* Se firma lo que de verdad esté ahí, no una lista fija: los nombres han
+   cambiado entre respaldos y una lista fija firma cero archivos en
+   silencio. Se recorren los sueltos y se quedan los que importan. */
+const firmar = sueltos.filter((n) =>
+  n.endsWith(".bundle") || n.endsWith(".md") || n.endsWith(".txt") || n.endsWith(".ps1"));
 for (const n of firmar) {
   const p = join(USB, n);
   if (!existsSync(p)) continue;
@@ -127,7 +147,7 @@ L.push("", "### Material de origen, archivo a archivo", "");
 L.push("Son los originales que solo existen aquí.", "");
 L.push("| Archivo | KB | SHA-256 (primeros 16) |");
 L.push("|---|---:|---|");
-const base = join(USB, "proyecto/arenas-web.github.io/material-origen");
+const base = join(USB, RAIZ_PROYECTO, "material-origen");
 for (const f of mat.sort((a, b) => a.ruta.localeCompare(b.ruta))) {
   L.push("| `" + relative(base, f.ruta).replace(/\\/g, "/") + "` | " +
     Math.round(f.bytes / 1024) + " | `" + huella(f.ruta).slice(0, 16) + "` |");
