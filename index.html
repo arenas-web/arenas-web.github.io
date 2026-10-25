@@ -110,8 +110,8 @@
          script.js → inicializarHeaderScroll() añade .is-scrolled
          (fondo oscuro con blur) tras 24px de scroll.
     ============================================================ -->
-    <header class="site-header" role="banner">
-      <div class="brand" aria-label="ARENAS MOTOCICLETAS inicio">
+    <header class="site-header site-header--home" role="banner">
+      <a class="brand" href="#hero" aria-label="ARENAS MOTOCICLETAS, inicio">
         <img
 
           class="brand-logo"
@@ -125,7 +125,7 @@
           alt=""
 
         />
-      </div>
+      </a>
 
       <!-- Botón hamburguesa para móvil -->
       <button
@@ -320,6 +320,8 @@
                   alt="" width="1672" height="941" loading="lazy" decoding="async" />
               </picture>
               <img class="path-panel__bike" src="assets/catalogo/pulsar-n125-fi/verde/portada.webp"
+                srcset="assets/catalogo/pulsar-n125-fi/verde/portada-mobile.webp 1280w, assets/catalogo/pulsar-n125-fi/verde/portada.webp 1600w"
+                sizes="(max-width: 900px) min(100vw, 760px), min(67vw, 1120px)"
                 alt="Fotografía de una moto del catálogo para ciudad, en una composición con escenario urbano." width="1600" height="1000" loading="lazy" decoding="async" />
               <span class="path-panel__num" aria-hidden="true">01</span>
               <div class="path-panel__inner">
@@ -327,8 +329,8 @@
                   <h3 class="path-panel__title">Ciudad</h3>
                   <p class="path-panel__desc">Movilidad ágil para el ritmo de cada día.</p>
                   <p class="path-panel__models">
-                    <span class="path-panel__models-label">Referencias editoriales</span>
-                    CT125 · Discover 125 · Pulsar 125 LS · Pulsar N125 FI
+                    <span class="path-panel__models-label">En la imagen</span>
+                    <a class="path-panel__model-link" href="modelo.html?slug=pulsar-n125-fi">Pulsar N125 FI<span aria-hidden="true"> ↗</span></a>
                   </p>
                   <a href="catalogo.html?categoria=ciudad" class="btn btn-primary btn-hero path-panel__cta">Explorar ciudad</a>
                 </div>
@@ -351,6 +353,8 @@
                   alt="" width="1672" height="941" loading="lazy" decoding="async" />
               </picture>
               <img class="path-panel__bike" src="assets/catalogo/boxer-bm150x-disc/negro/portada.webp"
+                srcset="assets/catalogo/boxer-bm150x-disc/negro/portada-mobile.webp 1280w, assets/catalogo/boxer-bm150x-disc/negro/portada.webp 1600w"
+                sizes="(max-width: 900px) min(100vw, 760px), min(67vw, 1120px)"
                 alt="Fotografía de una moto del catálogo para trabajo, en una composición con patio de almacén." width="1600" height="1000" loading="lazy" decoding="async" />
               <span class="path-panel__num" aria-hidden="true">02</span>
               <div class="path-panel__inner">
@@ -358,8 +362,8 @@
                   <h3 class="path-panel__title">Trabajo</h3>
                   <p class="path-panel__desc">Fuerza y resistencia para impulsar cada jornada.</p>
                   <p class="path-panel__models">
-                    <span class="path-panel__models-label">Referencia editorial</span>
-                    Boxer 150
+                    <span class="path-panel__models-label">En la imagen</span>
+                    <a class="path-panel__model-link" href="modelo.html?slug=boxer-bm150x-disc">Boxer BM150X Disc<span aria-hidden="true"> ↗</span></a>
                   </p>
                   <a href="catalogo.html?categoria=trabajo" class="btn btn-primary btn-hero path-panel__cta">Explorar trabajo</a>
                 </div>
@@ -382,6 +386,8 @@
                   alt="" width="1672" height="941" loading="lazy" decoding="async" />
               </picture>
               <img class="path-panel__bike" src="assets/catalogo/pulsar-200-ns-ug2/negro/portada.webp"
+                srcset="assets/catalogo/pulsar-200-ns-ug2/negro/portada-mobile.webp 1280w, assets/catalogo/pulsar-200-ns-ug2/negro/portada.webp 1600w"
+                sizes="(max-width: 900px) min(100vw, 760px), min(67vw, 1120px)"
                 alt="Fotografía de una moto deportiva del catálogo, en una composición con asfalto y arquitectura de concreto." width="1600" height="1000" loading="lazy" decoding="async" />
               <span class="path-panel__num" aria-hidden="true">03</span>
               <div class="path-panel__inner">
@@ -389,8 +395,8 @@
                   <h3 class="path-panel__title">Deportiva</h3>
                   <p class="path-panel__desc">Diseño, carácter y rendimiento para destacar en cada ruta.</p>
                   <p class="path-panel__models">
-                    <span class="path-panel__models-label">Referencias editoriales</span>
-                    Pulsar 150R · Pulsar 160 NS UG2 · Pulsar N160 FI · Pulsar 180 Neon · Pulsar 200 NS UG2
+                    <span class="path-panel__models-label">En la imagen</span>
+                    <a class="path-panel__model-link" href="modelo.html?slug=pulsar-200-ns-ug2">Pulsar 200 NS UG2<span aria-hidden="true"> ↗</span></a>
                   </p>
                   <a href="catalogo.html?categoria=deportiva" class="btn btn-primary btn-hero path-panel__cta">Explorar deportiva</a>
                 </div>
@@ -413,6 +419,8 @@
                   alt="" width="1672" height="941" loading="lazy" decoding="async" />
               </picture>
               <img class="path-panel__bike" src="assets/catalogo/dominar-400/verde/portada.webp"
+                srcset="assets/catalogo/dominar-400/verde/portada-mobile.webp 1280w, assets/catalogo/dominar-400/verde/portada.webp 1600w"
+                sizes="(max-width: 900px) min(100vw, 760px), min(67vw, 1120px)"
                 alt="Fotografía de una moto del catálogo para ruta, en una composición con carretera andina." width="1600" height="1000" loading="lazy" decoding="async" />
               <span class="path-panel__num" aria-hidden="true">04</span>
               <div class="path-panel__inner">
@@ -420,8 +428,8 @@
                   <h3 class="path-panel__title">Ruta y aventura</h3>
                   <p class="path-panel__desc">Potencia y confianza para descubrir nuevos caminos.</p>
                   <p class="path-panel__models">
-                    <span class="path-panel__models-label">Referencias editoriales</span>
-                    Pulsar N250 UG · Dominar 250 · Dominar 400 · Pulsar 400 NS
+                    <span class="path-panel__models-label">En la imagen</span>
+                    <a class="path-panel__model-link" href="modelo.html?slug=dominar-400">Dominar 400<span aria-hidden="true"> ↗</span></a>
                   </p>
                   <a href="catalogo.html?categoria=aventura" class="btn btn-primary btn-hero path-panel__cta">Explorar aventura</a>
                 </div>
@@ -570,8 +578,8 @@
         <section id="colecciones" class="collections-section reveal-section" data-section="collections" aria-labelledby="colecciones-heading">
           <div class="wrap">
             <header class="block-head">
-              <h2 id="colecciones-heading" class="block-title">Explora nuestras colecciones</h2>
-              <p class="block-lead">Diferentes formas de moverse. Una misma pasión por la ruta.</p>
+              <h2 id="colecciones-heading" class="block-title">Elige cómo quieres moverte</h2>
+              <p class="block-lead">Explora por uso y encuentra las fichas de cada modelo.</p>
             </header>
 
             <div class="collections-grid">
@@ -579,11 +587,13 @@
                 <picture class="collection__media" aria-hidden="true">
                   <img class="collection__img" src="assets/portadas/escena-ciudad-v1.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
                 </picture>
-                <img class="collection__bike" src="assets/catalogo/pulsar-n125-fi/verde/portada.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
+                <img class="collection__bike" src="assets/catalogo/pulsar-n125-fi/verde/portada.webp"
+                srcset="assets/catalogo/pulsar-n125-fi/verde/portada-mobile.webp 1280w, assets/catalogo/pulsar-n125-fi/verde/portada.webp 1600w"
+                sizes="(max-width: 680px) calc(100vw - 88px), (max-width: 1400px) 46vw, 650px" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
                 <span class="collection__tag">Colección</span>
                 <span class="collection__title">Movilidad urbana</span>
-                <span class="collection__desc">Soluciones visuales para moverte con agilidad en el día a día.</span>
-                <span class="collection__cta">Explorar estilo
+                <span class="collection__desc">Para ir al trabajo, estudiar o recorrer la ciudad a tu ritmo.</span>
+                <span class="collection__cta">Ver motos urbanas
                   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
               </a>
@@ -592,11 +602,13 @@
                 <picture class="collection__media" aria-hidden="true">
                   <img class="collection__img" src="assets/portadas/escena-trabajo-v1.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
                 </picture>
-                <img class="collection__bike" src="assets/catalogo/boxer-bm150x-disc/negro/portada.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
+                <img class="collection__bike" src="assets/catalogo/boxer-bm150x-disc/negro/portada.webp"
+                srcset="assets/catalogo/boxer-bm150x-disc/negro/portada-mobile.webp 1280w, assets/catalogo/boxer-bm150x-disc/negro/portada.webp 1600w"
+                sizes="(max-width: 680px) calc(100vw - 88px), (max-width: 1400px) 46vw, 650px" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
                 <span class="collection__tag">Colección</span>
                 <span class="collection__title">Trabajo y productividad</span>
-                <span class="collection__desc">Una categoría orientada a jornadas, traslado y movimiento constante.</span>
-                <span class="collection__cta">Explorar estilo
+                <span class="collection__desc">Para quienes hacen de cada recorrido parte de su jornada.</span>
+                <span class="collection__cta">Ver motos de trabajo
                   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
               </a>
@@ -605,11 +617,13 @@
                 <picture class="collection__media" aria-hidden="true">
                   <img class="collection__img" src="assets/portadas/escena-deportiva-v1.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
                 </picture>
-                <img class="collection__bike" src="assets/catalogo/pulsar-200-ns-ug2/negro/portada.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
+                <img class="collection__bike" src="assets/catalogo/pulsar-200-ns-ug2/negro/portada.webp"
+                srcset="assets/catalogo/pulsar-200-ns-ug2/negro/portada-mobile.webp 1280w, assets/catalogo/pulsar-200-ns-ug2/negro/portada.webp 1600w"
+                sizes="(max-width: 680px) calc(100vw - 88px), (max-width: 1400px) 46vw, 650px" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
                 <span class="collection__tag">Colección</span>
                 <span class="collection__title">Estilo deportivo</span>
-                <span class="collection__desc">Diseño, presencia y una experiencia de conducción con carácter.</span>
-                <span class="collection__cta">Explorar estilo
+                <span class="collection__desc">Compara cilindradas, equipamiento y diseños con carácter.</span>
+                <span class="collection__cta">Ver motos deportivas
                   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
               </a>
@@ -618,11 +632,13 @@
                 <picture class="collection__media" aria-hidden="true">
                   <img class="collection__img" src="assets/portadas/escena-aventura-v1.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
                 </picture>
-                <img class="collection__bike" src="assets/catalogo/dominar-400/verde/portada.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
-                <span class="collection__tag">Colección panorámica</span>
+                <img class="collection__bike" src="assets/catalogo/dominar-400/verde/portada.webp"
+                srcset="assets/catalogo/dominar-400/verde/portada-mobile.webp 1280w, assets/catalogo/dominar-400/verde/portada.webp 1600w"
+                sizes="(max-width: 680px) calc(100vw - 88px), (max-width: 1400px) 46vw, 650px" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
+                <span class="collection__tag">Colección</span>
                 <span class="collection__title">Ruta y aventura</span>
-                <span class="collection__desc">Una propuesta para quienes buscan caminos más largos.</span>
-                <span class="collection__cta">Explorar estilo
+                <span class="collection__desc">Conoce las opciones del catálogo para tu próxima salida a carretera.</span>
+                <span class="collection__cta">Ver motos para viajar
                   <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
               </a>

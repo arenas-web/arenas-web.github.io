@@ -2056,8 +2056,8 @@
   }
 
   .catalog-filter__label {
-    font-size: 0.66rem;
-    letter-spacing: 0.03em;
+    font-size: .8125rem;
+    letter-spacing: 0;
     color: var(--color-muted);
   }
 
