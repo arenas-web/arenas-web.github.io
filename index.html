@@ -87,6 +87,8 @@
          mientras el navegador aún lee la cabecera ahorra el saludo TLS
          cuando después se pide de verdad. -->
     <link rel="preconnect" href="https://script.google.com" crossorigin />
+    <link rel="preload" href="assets/fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="style.css" />
     <link rel="canonical" href="https://arenas-web.github.io/" />
 
@@ -249,31 +251,7 @@
         </section>
 
         <section id="metricas" class="stats-section reveal-section" aria-label="Nuestra trayectoria en cifras">
-          <!-- Línea de gráfico de crecimiento — puramente decorativa -->
-          <svg class="stats-graph" viewBox="0 0 1200 260" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <defs>
-              <linearGradient id="statsLineGrad" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#1f6bff" stop-opacity="0.15" />
-                <stop offset="0.55" stop-color="#5b93ff" stop-opacity="0.95" />
-                <stop offset="1" stop-color="#bcd4ff" stop-opacity="0.95" />
-              </linearGradient>
-              <linearGradient id="statsAreaGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#1f6bff" stop-opacity="0.16" />
-                <stop offset="1" stop-color="#1f6bff" stop-opacity="0" />
-              </linearGradient>
-            </defs>
-            <path class="stats-graph__area" fill="url(#statsAreaGrad)"
-              d="M0,205 C130,196 210,150 330,162 C470,175 520,92 690,112 C840,130 910,52 1050,66 C1130,74 1175,42 1200,32 L1200,260 L0,260 Z" />
-            <path class="stats-graph__line" fill="none" stroke="url(#statsLineGrad)" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round" pathLength="1"
-              d="M0,205 C130,196 210,150 330,162 C470,175 520,92 690,112 C840,130 910,52 1050,66 C1130,74 1168,44 1188,34" />
-            <!-- Punta de flecha al final de la línea de crecimiento — decorativa -->
-            <path class="stats-graph__arrow" fill="none" stroke="#bcd4ff" stroke-width="2.5"
-              stroke-linecap="round" stroke-linejoin="round"
-              d="M1170,33 L1188,34 L1178,49" />
-          </svg>
-
-          <ul class="stats-grid" role="list">
+<ul class="stats-grid" role="list">
             <li class="stat-item stat-item--1">
               <span class="stat-number">12<span class="stat-plus">+</span></span>
               <span class="stat-label">Años de experiencia</span>
@@ -337,30 +315,12 @@
               data-order="1"
               data-active="true"
             >
-              <picture class="path-panel__media">
-                <source
-                  media="(max-width: 900px)"
-                  type="image/webp"
-                  srcset="assets/portadas/camino-ciudad-mobile.webp"
-                  width="941"
-                  height="1672"
-                />
-                <source
-                  type="image/webp"
-                  srcset="assets/portadas/camino-ciudad-desktop.webp"
-                  width="1672"
-                  height="941"
-                />
-                <img
-                  class="path-panel__img"
-                  src="assets/portadas/camino-ciudad-desktop.jpg"
-                  alt="Motocicleta urbana referencial en una calle de arquitectura tradicional cusqueña."
-                  width="1672"
-                  height="941"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <picture class="path-panel__media" aria-hidden="true">
+                <img class="path-panel__img" src="assets/portadas/escena-ciudad-v1.webp"
+                  alt="" width="1672" height="941" loading="lazy" decoding="async" />
               </picture>
+              <img class="path-panel__bike" src="assets/catalogo/pulsar-n125-fi/verde/portada.webp"
+                alt="Fotografía de una moto del catálogo para ciudad, en una composición con escenario urbano." width="1600" height="1000" loading="lazy" decoding="async" />
               <span class="path-panel__num" aria-hidden="true">01</span>
               <div class="path-panel__inner">
                 <div class="path-panel__body">
@@ -386,30 +346,12 @@
               data-order="2"
               data-active="false"
             >
-              <picture class="path-panel__media">
-                <source
-                  media="(max-width: 900px)"
-                  type="image/webp"
-                  srcset="assets/portadas/camino-trabajo-mobile.webp"
-                  width="941"
-                  height="1672"
-                />
-                <source
-                  type="image/webp"
-                  srcset="assets/portadas/camino-trabajo-desktop.webp"
-                  width="1672"
-                  height="941"
-                />
-                <img
-                  class="path-panel__img"
-                  src="assets/portadas/camino-trabajo-desktop.jpg"
-                  alt="Motocicleta utilitaria referencial frente a un almacén comercial."
-                  width="1672"
-                  height="941"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <picture class="path-panel__media" aria-hidden="true">
+                <img class="path-panel__img" src="assets/portadas/escena-trabajo-v1.webp"
+                  alt="" width="1672" height="941" loading="lazy" decoding="async" />
               </picture>
+              <img class="path-panel__bike" src="assets/catalogo/boxer-bm150x-disc/negro/portada.webp"
+                alt="Fotografía de una moto del catálogo para trabajo, en una composición con patio de almacén." width="1600" height="1000" loading="lazy" decoding="async" />
               <span class="path-panel__num" aria-hidden="true">02</span>
               <div class="path-panel__inner">
                 <div class="path-panel__body">
@@ -435,30 +377,12 @@
               data-order="3"
               data-active="false"
             >
-              <picture class="path-panel__media">
-                <source
-                  media="(max-width: 900px)"
-                  type="image/webp"
-                  srcset="assets/portadas/camino-deportiva-mobile.webp"
-                  width="941"
-                  height="1672"
-                />
-                <source
-                  type="image/webp"
-                  srcset="assets/portadas/camino-deportiva-desktop.webp"
-                  width="1672"
-                  height="941"
-                />
-                <img
-                  class="path-panel__img"
-                  src="assets/portadas/camino-deportiva-desktop.jpg"
-                  alt="Motocicleta deportiva referencial en una avenida urbana al atardecer."
-                  width="1672"
-                  height="941"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <picture class="path-panel__media" aria-hidden="true">
+                <img class="path-panel__img" src="assets/portadas/escena-deportiva-v1.webp"
+                  alt="" width="1672" height="941" loading="lazy" decoding="async" />
               </picture>
+              <img class="path-panel__bike" src="assets/catalogo/pulsar-200-ns-ug2/negro/portada.webp"
+                alt="Fotografía de una moto deportiva del catálogo, en una composición con asfalto y arquitectura de concreto." width="1600" height="1000" loading="lazy" decoding="async" />
               <span class="path-panel__num" aria-hidden="true">03</span>
               <div class="path-panel__inner">
                 <div class="path-panel__body">
@@ -484,30 +408,12 @@
               data-order="4"
               data-active="false"
             >
-              <picture class="path-panel__media">
-                <source
-                  media="(max-width: 900px)"
-                  type="image/webp"
-                  srcset="assets/portadas/camino-aventura-mobile.webp"
-                  width="941"
-                  height="1672"
-                />
-                <source
-                  type="image/webp"
-                  srcset="assets/portadas/camino-aventura-desktop.webp"
-                  width="1672"
-                  height="941"
-                />
-                <img
-                  class="path-panel__img"
-                  src="assets/portadas/camino-aventura-desktop.jpg"
-                  alt="Motocicleta de ruta referencial en una carretera andina rodeada de montañas."
-                  width="1672"
-                  height="941"
-                  loading="lazy"
-                  decoding="async"
-                />
+              <picture class="path-panel__media" aria-hidden="true">
+                <img class="path-panel__img" src="assets/portadas/escena-aventura-v1.webp"
+                  alt="" width="1672" height="941" loading="lazy" decoding="async" />
               </picture>
+              <img class="path-panel__bike" src="assets/catalogo/dominar-400/verde/portada.webp"
+                alt="Fotografía de una moto del catálogo para ruta, en una composición con carretera andina." width="1600" height="1000" loading="lazy" decoding="async" />
               <span class="path-panel__num" aria-hidden="true">04</span>
               <div class="path-panel__inner">
                 <div class="path-panel__body">
@@ -671,10 +577,9 @@
             <div class="collections-grid">
               <a href="catalogo.html?categoria=ciudad" class="collection collection--urbana reveal-scale" data-collection="movilidad-urbana" data-dynamic-slot data-fallback-state="editorial">
                 <picture class="collection__media" aria-hidden="true">
-                  <source media="(max-width: 900px)" type="image/webp" srcset="assets/portadas/camino-ciudad-mobile.webp" />
-                  <source type="image/webp" srcset="assets/portadas/camino-ciudad-desktop.webp" />
-                  <img class="collection__img" src="assets/portadas/camino-ciudad-desktop.jpg" alt="" width="1672" height="941" loading="lazy" decoding="async" />
+                  <img class="collection__img" src="assets/portadas/escena-ciudad-v1.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
                 </picture>
+                <img class="collection__bike" src="assets/catalogo/pulsar-n125-fi/verde/portada.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
                 <span class="collection__tag">Colección</span>
                 <span class="collection__title">Movilidad urbana</span>
                 <span class="collection__desc">Soluciones visuales para moverte con agilidad en el día a día.</span>
@@ -685,10 +590,9 @@
 
               <a href="catalogo.html?categoria=trabajo" class="collection collection--trabajo reveal-scale" data-collection="trabajo-productividad" data-dynamic-slot data-fallback-state="editorial">
                 <picture class="collection__media" aria-hidden="true">
-                  <source media="(max-width: 900px)" type="image/webp" srcset="assets/portadas/camino-trabajo-mobile.webp" />
-                  <source type="image/webp" srcset="assets/portadas/camino-trabajo-desktop.webp" />
-                  <img class="collection__img" src="assets/portadas/camino-trabajo-desktop.jpg" alt="" width="1672" height="941" loading="lazy" decoding="async" />
+                  <img class="collection__img" src="assets/portadas/escena-trabajo-v1.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
                 </picture>
+                <img class="collection__bike" src="assets/catalogo/boxer-bm150x-disc/negro/portada.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
                 <span class="collection__tag">Colección</span>
                 <span class="collection__title">Trabajo y productividad</span>
                 <span class="collection__desc">Una categoría orientada a jornadas, traslado y movimiento constante.</span>
@@ -699,10 +603,9 @@
 
               <a href="catalogo.html?categoria=deportiva" class="collection collection--deportivo reveal-scale" data-collection="estilo-deportivo" data-dynamic-slot data-fallback-state="editorial">
                 <picture class="collection__media" aria-hidden="true">
-                  <source media="(max-width: 900px)" type="image/webp" srcset="assets/portadas/camino-deportiva-mobile.webp" />
-                  <source type="image/webp" srcset="assets/portadas/camino-deportiva-desktop.webp" />
-                  <img class="collection__img" src="assets/portadas/camino-deportiva-desktop.jpg" alt="" width="1672" height="941" loading="lazy" decoding="async" />
+                  <img class="collection__img" src="assets/portadas/escena-deportiva-v1.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
                 </picture>
+                <img class="collection__bike" src="assets/catalogo/pulsar-200-ns-ug2/negro/portada.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
                 <span class="collection__tag">Colección</span>
                 <span class="collection__title">Estilo deportivo</span>
                 <span class="collection__desc">Diseño, presencia y una experiencia de conducción con carácter.</span>
@@ -713,10 +616,9 @@
 
               <a href="catalogo.html?categoria=aventura" class="collection collection--aventura reveal-scale" data-collection="ruta-aventura" data-dynamic-slot data-fallback-state="editorial">
                 <picture class="collection__media" aria-hidden="true">
-                  <source media="(max-width: 900px)" type="image/webp" srcset="assets/portadas/camino-aventura-mobile.webp" />
-                  <source type="image/webp" srcset="assets/portadas/camino-aventura-desktop.webp" />
-                  <img class="collection__img" src="assets/portadas/camino-aventura-desktop.jpg" alt="" width="1672" height="941" loading="lazy" decoding="async" />
+                  <img class="collection__img" src="assets/portadas/escena-aventura-v1.webp" alt="" width="1672" height="941" loading="lazy" decoding="async" />
                 </picture>
+                <img class="collection__bike" src="assets/catalogo/dominar-400/verde/portada.webp" alt="" width="1600" height="1000" loading="lazy" decoding="async" />
                 <span class="collection__tag">Colección panorámica</span>
                 <span class="collection__title">Ruta y aventura</span>
                 <span class="collection__desc">Una propuesta para quienes buscan caminos más largos.</span>
