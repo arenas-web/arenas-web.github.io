@@ -2219,7 +2219,8 @@ comprobar("todas las categorías enlazadas existen en el catálogo",
 // sección de la propia portada. Las anclas de navegación —cabecera, pie,
 // «Descubrir estilos»— son legítimas y siguen siendo anclas: lo que no puede
 // serlo es el botón que promete el catálogo.
-const heroCta = /<a\s+href="([^"]+)"[^>]*class="btn btn-primary btn-hero"[^>]*>Explorar catálogo<\/a>/.exec(portadaHtml);
+const heroHtml = /<section\b[^>]*\bid="hero"[^>]*>([\s\S]*?)<\/section>/.exec(portadaHtml)?.[1] || "";
+const heroCta = /<a\b(?=[^>]*\bclass="(?:[^"\s]+\s+)*btn-primary(?:\s+[^"\s]+)*")(?=[^>]*\bhref="([^"]+)")[^>]*>\s*Explorar catálogo(?:\s*<span\b[^>]*>[^<]*<\/span>)?\s*<\/a>/.exec(heroHtml);
 comprobar("el botón «Explorar catálogo» del hero abre el catálogo",
   !!heroCta && heroCta[1].indexOf("catalogo.html") === 0,
   heroCta ? heroCta[1] : "(no se encuentra el botón)");
@@ -2258,7 +2259,7 @@ PAGINAS.forEach((pagina) => {
 
   // Abrir estas dos puertas anularía la política entera.
   comprobar(pagina + ": no abre unsafe-inline ni unsafe-eval para scripts",
-    !/script-src[^;]*unsafe-(inline|eval)/.test(politica));
+    !/(?:^|;)\s*script-src(?:-elem|-attr)?(?=\s)[^;]*\s'unsafe-(?:inline|eval)'(?=\s|;|$)/.test(politica));
 
   // Sin esto, una etiqueta <base> inyectada reescribe todas las rutas.
   comprobar(pagina + ": cierra object-src, base-uri y form-action",

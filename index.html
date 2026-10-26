@@ -29,12 +29,14 @@
     ============================================================ -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk='; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk='; style-src 'self'; img-src 'self' data: blob:; media-src 'self'; font-src 'self'; connect-src 'self' blob: https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
+    <!-- Local WebGL uses Wasm decoding and blob-backed embedded textures only.
+         No external scripts, dynamic JavaScript evaluation or inline styles. -->
     <!-- SEO base -->
-    <meta name="description" content="Motocicletas en Cusco para ciudad, trabajo y ruta andina. Encuentra tu camino con ARENAS: 12+ años de experiencia y más de 5000 motos vendidas." />
+    <meta name="description" content="Explora la Pulsar NS200 en 3D y encuentra tu camino con ARENAS Motocicletas. Catálogo y asesoría para ciudad, trabajo y ruta andina en Cusco." />
     <meta name="keywords" content="Arenas Motocicletas, motos en Cusco, motocicletas Cusco, moto para ciudad, moto para trabajo, ruta andina" />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="ARENAS MOTOCICLETAS" />
@@ -90,11 +92,12 @@
     <link rel="preload" href="assets/fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="assets/fonts/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/css/cinema-home.css" />
     <link rel="canonical" href="https://arenas-web.github.io/" />
 
     <!-- LCP: el poster del hero es el primer elemento visual grande;
-         precargarlo evita el parpadeo antes de que el video decodifique. -->
-    <link rel="preload" as="image" href="assets/videos/posters/home-hero-rs200.webp" fetchpriority="high" />
+         precargarlo evita esperar al modelo 3D para ver la moto. -->
+    <link rel="preload" as="image" href="assets/3d/ns200/poster.webp" media="(min-width: 700px)" fetchpriority="high" />
 
     <!-- Marca temprana de JS activo: los estados iniciales de las
          animaciones de reveal solo se aplican bajo html.js, de modo que
@@ -106,7 +109,7 @@
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
 
     <!-- ============================================================
-         HEADER — fijo y transparente, superpuesto al video del hero.
+         HEADER — fijo y transparente, superpuesto a la escena del hero.
          script.js → inicializarHeaderScroll() añade .is-scrolled
          (fondo oscuro con blur) tras 24px de scroll.
     ============================================================ -->
@@ -156,61 +159,69 @@
     ============================================================ -->
     <main id="main-content" role="main" tabindex="-1">
 
-        <!-- ============================================================
-             SECCIÓN 1: HERO
-             Introducción de marca, headline principal y CTAs primarios.
-             DISEÑO FINAL PENDIENTE — no cerrar estética hasta sesión de diseño.
-        ============================================================ -->
-        <!-- ============================================================
-             SECCIÓN 1: HERO CINEMATOGRÁFICO FULL-BLEED
-             Video de fondo a pantalla completa detrás del header fijo.
-             Video PROVISIONAL (marca visible del generador; se sustituirá
-             por la exportación oficial limpia). Sin loop: la moto llega y
-             el último fotograma queda en pantalla.
-             script.js → inicializarHeroVideo(): pausa fuera del viewport,
-             conserva el estado final y respeta prefers-reduced-motion.
-        ============================================================ -->
-        <section id="hero" class="hero-section" aria-labelledby="hero-heading">
-          <div class="hero-media" aria-hidden="true">
-            <video
-              id="hero-video"
-              class="hero-video"
-              autoplay
-              muted
-              playsinline
-              preload="metadata"
-              poster="assets/videos/posters/home-hero-rs200.webp"
-              tabindex="-1"
-            >
-              <source src="assets/videos/web/home-hero-rs200.mp4" type="video/mp4" />
-            </video>
-            <span class="hero-overlay hero-overlay--left"></span>
-            <span class="hero-overlay hero-overlay--vertical"></span>
-            <span class="hero-overlay hero-overlay--vignette"></span>
-          </div>
-
-          <div class="hero-content">
-            <div class="hero-copy">
-              <h1 id="hero-heading" class="hero-title">
-                <span class="hero-title__line hero-anim hero-anim--1">Rutas que te definen.</span>
-                <span class="hero-title__line hero-title__line--accent hero-anim hero-anim--2">Libertad que te mueve.</span>
-              </h1>
-              <p class="hero-description hero-anim hero-anim--3">
-                Desde la ciudad hasta la ruta andina, encuentra la experiencia que encaje con tu camino.
-              </p>
-              <div class="hero-actions hero-anim hero-anim--4">
-                <!-- Dice «catálogo», así que abre el catálogo. Antes bajaba a
-                     la sección de colecciones de esta misma página: el botón
-                     más visible del sitio prometía una cosa y hacía otra. -->
-                <a href="catalogo.html" class="btn btn-primary btn-hero" aria-label="Ver el catálogo completo de motocicletas">Explorar catálogo</a>
-                <a href="#equipo" class="btn btn-secondary btn-hero" aria-label="Conocer más sobre ARENAS MOTOCICLETAS">Conocer ARENAS</a>
+        <section id="hero" class="cinema-story" aria-labelledby="hero-heading">
+          <div class="cinema-stage">
+            <span class="cinema-wordmark" aria-hidden="true">NS200</span>
+            <div id="cinema-viewport" class="cinema-viewport" role="img" aria-label="Modelo tridimensional de una Pulsar NS200 negra y roja">
+              <picture class="cinema-poster">
+                <source media="(max-width: 699px)" srcset="assets/3d/ns200/poster-mobile.webp" />
+                <img src="assets/3d/ns200/poster.webp" alt="Pulsar NS200 negra y roja, vista de tres cuartos en un estudio oscuro" width="1020" height="660" fetchpriority="high" />
+              </picture>
+            </div>
+            <div class="cinema-bottom">
+              <div class="cinema-caption"><span class="cinema-caption__line"></span><span>PULSAR NS200<br /><small>Una nueva perspectiva.</small></span></div>
+              <div class="cinema-tools" hidden>
+                <p id="cinema-status" class="cinema-status" role="status" aria-live="polite">Explora el modelo desde todos los ángulos.</p>
+                <div class="cinema-controls">
+                  <button id="cinema-start" type="button" aria-controls="cinema-viewport">Explorar en 3D <span aria-hidden="true">↗</span></button>
+                  <button id="cinema-toggle" type="button" aria-pressed="false" hidden>Girar la moto <span aria-hidden="true">↗</span></button>
+                  <div id="cinema-views" class="cinema-views" aria-label="Vistas del modelo" hidden>
+                    <button type="button" data-cinema-pose="whole" aria-label="Vista de tres cuartos">3/4</button>
+                    <button type="button" data-cinema-pose="side">Lateral</button>
+                    <button type="button" data-cinema-pose="front">Frontal</button>
+                  </div>
+                </div>
               </div>
             </div>
+            <nav class="cinema-pagination" aria-label="Recorrido de la moto">
+              <a href="#hero" aria-label="Presentación" aria-current="step">01</a><span></span>
+              <a href="#ns200" aria-label="Descubrir la moto">02</a><span></span>
+              <a href="#tu-ruta" aria-label="Encuentra tu camino">03</a>
+            </nav>
           </div>
-
-          <!-- Indicador de scroll — decorativo -->
-          <span class="hero-scroll-cue hero-anim hero-anim--6" aria-hidden="true"></span>
+          <div class="cinema-chapters">
+            <article class="cinema-chapter" data-chapter="0">
+              <div class="cinema-copy">
+                <p class="cinema-eyebrow">ARENAS MOTOCICLETAS <span> / </span> CUSCO, PERÚ</p>
+                <h1 id="hero-heading">Rutas que<br />te definen<span class="cinema-dot">.</span></h1>
+                <p class="cinema-lead">Libertad que te mueve.</p>
+                <p class="cinema-description">Desde la ciudad hasta la ruta andina. Encuentra la moto que encaje con tu camino.</p>
+                <div class="cinema-actions"><a href="catalogo.html" class="btn btn-primary">Explorar catálogo <span aria-hidden="true">↗</span></a><a href="#ns200" class="cinema-link">Descubre la moto <span aria-hidden="true">↓</span></a></div>
+                <a href="#ns200" class="cinema-scroll">DESLIZA PARA EXPLORAR <span aria-hidden="true">↓</span></a>
+              </div>
+            </article>
+            <article id="ns200" class="cinema-chapter" data-chapter="1" aria-labelledby="ns200-heading">
+              <div class="cinema-copy">
+                <p class="cinema-eyebrow">01 / EN PRIMER PLANO</p>
+                <h2 id="ns200-heading">Carácter a<br />primera vista<span class="cinema-dot">.</span></h2>
+                <p class="cinema-lead">Pulsar NS200.</p>
+                <p class="cinema-description">Líneas que marcan su presencia. Negro profundo, acentos rojos y cada detalle a tu alcance.</p>
+                <div class="cinema-actions"><a href="modelo.html?slug=pulsar-200-ns-ug2" class="cinema-link">Conocer el modelo <span aria-hidden="true">↗</span></a><a href="#contacto" class="cinema-link">Consultar disponibilidad <span aria-hidden="true">↗</span></a></div>
+                <p class="cinema-disclaimer">Representación 3D referencial. Consulta la versión y el equipamiento disponibles.</p>
+              </div>
+            </article>
+            <article id="tu-ruta" class="cinema-chapter" data-chapter="2" aria-labelledby="tu-ruta-heading">
+              <div class="cinema-copy">
+                <p class="cinema-eyebrow">02 / TU SIGUIENTE RUTA</p>
+                <h2 id="tu-ruta-heading">Tú eliges<br />el camino<span class="cinema-dot">.</span></h2>
+                <p class="cinema-lead">Nosotros te acompañamos.</p>
+                <p class="cinema-description">En ARENAS, tu búsqueda empieza por lo que necesitas. Ciudad, trabajo o aventura: conoce las opciones y conversa con nuestro equipo.</p>
+                <div class="cinema-actions"><a href="#camino" class="btn btn-primary">Encuentra tu moto <span aria-hidden="true">↓</span></a><a href="#equipo" class="cinema-link">Conoce ARENAS <span aria-hidden="true">↗</span></a></div>
+              </div>
+            </article>
+          </div>
         </section>
+
 
         <!-- ============================================================
              SECCIÓN 1.5: MÉTRICAS DE CONFIANZA
@@ -981,5 +992,6 @@
     <script src="assets/js/catalogo/catalogo-video.js" defer></script>
 
     <script src="script.js" defer></script>
+    <script type="module" src="assets/js/cinema-home.js"></script>
   </body>
 </html>

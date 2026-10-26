@@ -1,0 +1,5 @@
+Three.js r183 — MIT License.
+Source: https://github.com/mrdoob/three.js/tree/r183
+Local copy from the approved viewer runtime.
+Module import specifiers were changed from bare three to ./three.module.js so no import map or remote CDN is required.
+One upstream indentation whitespace was normalized; runtime logic is unchanged.

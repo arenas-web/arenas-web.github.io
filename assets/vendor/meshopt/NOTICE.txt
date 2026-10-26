@@ -1,0 +1,4 @@
+meshoptimizer 1.3.0 — MIT License.
+Source: https://github.com/zeux/meshoptimizer
+Official npm package https://registry.npmjs.org/meshoptimizer/-/meshoptimizer-1.3.0.tgz
+The decoder is unmodified. WebAssembly code is embedded in the module; no remote requests or worker pool are needed.
