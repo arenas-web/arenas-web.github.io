@@ -43,6 +43,7 @@
     <link rel="preconnect" href="https://script.google.com" crossorigin />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="assets/css/catalogo.css" />
+    <link rel="stylesheet" href="assets/css/premium-catalogo.css" />
     <link rel="canonical" href="https://arenas-web.github.io/catalogo.html" />
 
     <!--
@@ -64,9 +65,10 @@
     </script>
 
     <script>document.documentElement.classList.add("js");</script>
+      <link rel="stylesheet" href="assets/css/recorridos.css" />
   </head>
 
-  <body class="page-interior">
+  <body class="page-interior premium-catalogo">
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
 
     <!-- ============================================================
@@ -134,16 +136,15 @@
             </ol>
           </nav>
 
-          <p class="catalog-intro__kicker">Catálogo ARENAS</p>
-          <h1 id="catalogo-heading" class="catalog-intro__title">Todos nuestros modelos</h1>
+          <p class="catalog-intro__kicker">La colección ARENAS</p>
+          <h1 id="catalogo-heading" class="catalog-intro__title">Tu próxima ruta,<span>empieza aquí.</span></h1>
           <!-- Copy deliberadamente breve. Medido en móvil real (320/390/430):
                con el texto anterior había que recorrer una pantalla entera de
                prosa antes de ver la primera motocicleta. La explicación de cómo
                filtrar sobraba: los filtros están justo debajo y se explican
                solos. -->
           <p class="catalog-intro__lead">
-            Cada modelo del catálogo, organizado por la forma en que se usa: ciudad, trabajo,
-            deportiva, ruta y aventura, y carga y transporte.
+            Conoce cada moto por sus detalles. Explora su recorrido y encuentra la que encaja contigo.
           </p>
 
           <noscript>
@@ -184,7 +185,10 @@
                Sin JavaScript queda igual de oculto y el catálogo sigue
                siendo navegable con sus filtros nativos.
           ======================================================== -->
-          <div id="catalogo-finder" class="catalog-finder-host" hidden></div>
+          <details class="catalog-guide" id="catalogo-guia" hidden>
+            <summary>¿Todavía no sabes cuál elegir?<span>Te ayudamos a encontrarla ↗</span></summary>
+            <div id="catalogo-finder" class="catalog-finder-host" hidden></div>
+          </details>
 
           <!-- ========================================================
                FILTROS
@@ -408,6 +412,7 @@
     <script src="assets/js/catalogo/catalogo-completitud.js" defer></script>
     <script src="assets/js/catalogo/catalogo-debug.js" defer></script>
     <script src="assets/js/catalogo/catalogo-ui.js" defer></script>
+    <script src="assets/js/catalogo/modelo-editorial.js" defer></script>
     <script src="assets/js/catalogo/catalogo-app.js" defer></script>
     <script src="assets/js/catalogo/catalogo-video.js" defer></script>
   </body>

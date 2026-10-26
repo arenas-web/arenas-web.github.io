@@ -400,9 +400,15 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
     return url;
   }
 
+  /** Ruta inmersiva disponible; conserva la ficha como salida si faltan medios. */
+  function urlRecorrido(modelo) {
+    if (!modelo.slug || !NS.schema.esPublicable(modelo, false) || !NS.editorial || !NS.editorial.tieneRecorrido(modelo.slug)) return "";
+    return "explorar.html?slug=" + encodeURIComponent(modelo.slug);
+  }
+
   /**
-   * Tarjeta de modelo. Un único punto de tabulación por tarjeta: el
-   * enlace del título, que se estira sobre toda la superficie con CSS.
+   * El título abre el recorrido cuando está disponible. La ficha técnica
+   * mantiene su enlace independiente por encima del enlace extendido.
    * @param {Object} modelo
    * @param {Object} [opciones] { indice, preview, tituloEtiqueta }
    */
@@ -428,7 +434,8 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
     // Sin slug la tarjeta se dibuja igual pero sin navegación: se ve el
     // modelo, se lee lo que le falta y no hay ningún enlace roto.
     var titulo = U.el("h3", { class: "moto-card__title" });
-    var destino = urlModelo(modelo);
+    var recorrido = urlRecorrido(modelo);
+    var destino = recorrido || urlModelo(modelo);
     if (destino) {
       titulo.appendChild(U.el("a", { class: "moto-card__link", href: destino }, modelo.titulo));
     } else {
@@ -466,8 +473,12 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
     pie.appendChild(
       // La hoja manda: `cta_label` es un campo editorial y se respeta. Este
       // es solo el texto por defecto cuando la celda está vacía.
-      U.el("span", { class: "moto-card__cta", "aria-hidden": "true" }, modelo.ctaLabel || "Explorar modelo")
+      U.el("span", { class: "moto-card__cta", "aria-hidden": "true" }, recorrido ? "Explorar moto" : (modelo.ctaLabel || "Explorar modelo"))
     );
+    if (recorrido) {
+      pie.appendChild(U.el("a", { class: "moto-card__spec", href: urlModelo(modelo),
+        "aria-label": "Ficha técnica de " + modelo.titulo }, "Ficha técnica"));
+    }
     cuerpo.appendChild(pie);
 
     // La foto que viaja a la ficha.
@@ -639,7 +650,29 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
       "aria-hidden": "true",
     });
   }
+  // Add tour links in place after editorial arrives: no grid redraw, lost focus or filter reset.
+  function habilitarRecorridos(contenedor, estado) {
+    if (!contenedor || !estado || !NS.editorial) return;
+    var porSlug = {};
+    estado.modelos.forEach(function (m) { porSlug[m.slug] = m; });
+    Array.prototype.forEach.call(contenedor.querySelectorAll(".moto-card"), function (card) {
+      var modelo = porSlug[card.getAttribute("data-slug")];
+      if (!modelo) return;
+      var destino = urlRecorrido(modelo);
+      var titulo = card.querySelector(".moto-card__link");
+      var pie = card.querySelector(".moto-card__footer");
+      if (!destino || !titulo || !pie) return;
+      titulo.setAttribute("href", destino);
+      var cta = card.querySelector(".moto-card__cta");
+      if (cta) cta.textContent = "Explorar moto";
+      if (!pie.querySelector(".moto-card__spec")) {
+        pie.appendChild(U.el("a", { class: "moto-card__spec", href: urlModelo(modelo),
+          "aria-label": "Ficha técnica de " + modelo.titulo }, "Ficha técnica"));
+      }
+    });
+  }
   NS.ui = {
+    habilitarRecorridos: habilitarRecorridos,
     iconoDato: iconoDato,
     claveIcono: claveIcono,
     MEDIA_MOBILE: MEDIA_MOBILE,
@@ -653,6 +686,7 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
     media: media,
     etiquetas: etiquetas,
     urlModelo: urlModelo,
+    urlRecorrido: urlRecorrido,
     tarjeta: tarjeta,
     estadoCargando: estadoCargando,
     estadoError: estadoError,

@@ -1,0 +1,188 @@
+/* ARENAS catalogue: the same ink / paper language as the studio and tours.
+   Scoped to this page; the publication gates, filters and media stay shared. */
+body.premium-catalogo {
+  --catalog-ink: #101923;
+  --catalog-paper: #f0f0ea;
+  --catalog-muted: #586575;
+  --catalog-rule: #16283b24;
+  background: #080c12;
+}
+body.premium-catalogo .site-header { padding-inline: 4.5%; background: #080c12ed; border-bottom: 1px solid #ffffff10; }
+body.premium-catalogo .brand-logo { width: 190px; }
+body.premium-catalogo .site-nav { gap: 28px; }
+body.premium-catalogo .site-nav .nav-link { font-size: 11px; font-weight: 500; letter-spacing: .01em; }
+body.premium-catalogo .site-nav .nav-cta { border-radius: 100px; background: #f0f2f5; color: #10151d !important; padding: 12px 23px; }
+body.premium-catalogo #main-content { padding-top: 76px; }
+body.premium-catalogo .wrap { max-width: 1440px; width: 91%; }
+body.premium-catalogo .catalog-intro { padding-block: 35px 58px; background: #080c12; }
+body.premium-catalogo .catalog-intro__media { opacity: .28; }
+body.premium-catalogo .catalog-intro__velo { background: linear-gradient(90deg,#080c12f5 0,#080c12a8 50%,#080c1230),linear-gradient(0deg,#080c12,transparent 85%); }
+body.premium-catalogo .breadcrumb { margin-bottom: 32px; }
+body.premium-catalogo .breadcrumb__lista { font-size: 10px; color: #93a3ba; }
+body.premium-catalogo .catalog-intro__kicker { margin-bottom: 17px; color: #91acd4; font-size: 9px; font-weight: 500; letter-spacing: .19em; text-transform: uppercase; }
+body.premium-catalogo .catalog-intro__title { color: #f3f2ed; font-size: clamp(43px,5.9vw,80px); font-weight: 450; line-height: 1.06; letter-spacing: -.06em; text-transform: none; max-width: 17ch; }
+body.premium-catalogo .catalog-intro__title span { display: block; color: #a8b7cd; }
+body.premium-catalogo .catalog-intro__lead { color: #a7b4c7; font-size: 13px; line-height: 1.85; max-width: 55ch; margin-top: 20px; }
+
+/* Local light-theme tokens keep every existing filter and empty state legible. */
+body.premium-catalogo .catalog-section {
+  --color-white: #182536;
+  --color-silver: #4f5f6e;
+  --color-muted: #64717f;
+  --color-surface: #f0f0ea;
+  --color-night: #f7f7f3;
+  --color-border-faint: #18283b18;
+  --color-border-soft: #18283b36;
+  --brand-blue-bright: #315fa7;
+  --brand-blue-ice: #234c91;
+  color: var(--catalog-ink);
+  background: var(--catalog-paper);
+  padding-block: 32px 90px;
+}
+body.premium-catalogo .catalog-guide { border-block: 1px solid var(--catalog-rule); margin: 0 0 28px; }
+body.premium-catalogo .catalog-guide > summary { min-height: 57px; padding-block: 17px; cursor: pointer; font-size: 13px; font-weight: 500; color: #26384a; }
+body.premium-catalogo .catalog-guide > summary::marker { color: #315fa7; }
+body.premium-catalogo .catalog-guide[open] > summary { margin-bottom: 20px; }
+body.premium-catalogo .finder { margin-bottom: 30px; }
+body.premium-catalogo .finder__titulo { font-weight: 450; font-size: 25px; letter-spacing: -.04em; }
+body.premium-catalogo .finder__texto { font-size: 13px; }
+body.premium-catalogo .finder__caminos { margin-top: 19px; }
+body.premium-catalogo .finder__input { min-height: 48px; border-radius: 10px; font-size: 14px; background: #fff9; color: var(--catalog-ink); border-color: #1428382b; }
+body.premium-catalogo .finder__input:focus { background: #fff; border-color: #315fa7; }
+body.premium-catalogo .finder__sugerencias { background: #fbfbf8; box-shadow: 0 14px 35px #10192318; }
+body.premium-catalogo .finder__camino--guia { padding-top: 18px; margin-top: 18px; }
+body.premium-catalogo .finder__camino--guia .finder__empezar { color: #315fa7; }
+body.premium-catalogo .finder__wizard { background: #fbfbf8; }
+body.premium-catalogo .finder__opcion,
+body.premium-catalogo .finder__muestra-item { background: #e8ebe7; }
+body.premium-catalogo .finder__opcion.is-activa { background: #e4eaf4; border-color: #315fa7; }
+body.premium-catalogo .finder__reset:hover { color: #172b40; }
+body.premium-catalogo .catalog-workspace { display: block; }
+body.premium-catalogo .catalog-filters { position: static; padding: 0; background: transparent; border: 0; border-radius: 0; }
+body.premium-catalogo .catalog-chips { gap: 8px 25px; }
+body.premium-catalogo .catalog-chip { font-size: 12px; font-weight: 500; color: #5e6c78; }
+body.premium-catalogo .catalog-chip:hover { color: #17283c; }
+body.premium-catalogo .catalog-chip[aria-pressed="true"],
+body.premium-catalogo .catalog-chip.is-active { color: #193b70; border-bottom-color: #315fa7; box-shadow: none; }
+body.premium-catalogo .catalog-panel__campos { gap: 18px; border-top-color: var(--catalog-rule); }
+body.premium-catalogo .catalog-filter__label { font-size: 11px; font-weight: 500; }
+body.premium-catalogo .catalog-section .form-input,
+body.premium-catalogo .catalog-section .form-select { min-height: 44px; color: #26384a; background-color: #ffffff70; border-color: #20394a2c; border-radius: 8px; font-size: 13px; }
+body.premium-catalogo .catalog-section .form-select { background-image: none; appearance: auto; -webkit-appearance: auto; padding-right: 10px; }
+body.premium-catalogo .catalog-section .form-select option { background: #fafbf7; color: #182536; }
+body.premium-catalogo .catalog-section .form-input::placeholder { color: #6c7782; }
+body.premium-catalogo .catalog-section .btn-secondary { border-color: #20394a36; background: transparent; color: #283b4e; }
+body.premium-catalogo .catalog-section .btn-primary { color: #fff; }
+body.premium-catalogo .catalog-results__toolbar { min-height: 52px; padding-top: 19px; margin: 23px 0 28px; border-color: var(--catalog-rule); }
+body.premium-catalogo .catalog-count { font-size: 12px; font-weight: 500; color: #314459; }
+body.premium-catalogo .catalog-sort { gap: 12px; }
+body.premium-catalogo .catalog-sort__label { font-size: 11px; }
+body.premium-catalogo .catalog-section .catalog-sort__select { background-color: transparent; border-color: transparent; font-size: 12px; }
+
+/* Large, quiet product plates. Existing card-entry/tilt effects stop here. */
+body.premium-catalogo .catalog-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 48px 32px; }
+body.premium-catalogo .moto-card,
+body.premium-catalogo .moto-card.is-entrando,
+body.premium-catalogo .moto-card:hover,
+body.premium-catalogo .moto-card:focus-within { background: transparent; border: 0; border-radius: 0; box-shadow: none; transform: none; animation: none; opacity: 1; }
+body.premium-catalogo .moto-card::before,
+body.premium-catalogo .moto-card::after { content: none; }
+body.premium-catalogo .moto-card__media { aspect-ratio: 16 / 10; background: radial-gradient(ellipse at 50% 92%,#22334417,transparent 50%),linear-gradient(135deg,#e4e7e3,#e9ebe6); border-radius: 14px; }
+body.premium-catalogo .moto-card__fallback { background: #e4e7e3; }
+body.premium-catalogo .moto-card__fallback-nota { color: #657380; }
+body.premium-catalogo .moto-card__fallback-mark { -webkit-text-stroke-color: #647b954d; }
+body.premium-catalogo .moto-card__img { object-fit: contain; animation: none; transform: none; padding: 15px 10px; transition: transform 500ms ease; }
+body.premium-catalogo .moto-card:hover .moto-card__img,
+body.premium-catalogo .moto-card:focus-within .moto-card__img { transform: scale(1.018); }
+body.premium-catalogo .moto-card__body { padding: 24px 3px 0; gap: 12px; }
+body.premium-catalogo .moto-card__meta { font-size: 9px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: #55708e; }
+body.premium-catalogo .moto-card__title { margin: 0; color: #172a3c; font-size: clamp(26px,2.7vw,39px); font-weight: 450; letter-spacing: -.045em; line-height: 1.12; }
+body.premium-catalogo .moto-card__link:hover { color: #315fa7; }
+body.premium-catalogo .moto-card__desc { display: block; -webkit-line-clamp: unset; line-clamp: unset; color: #5a6874; font-size: 13px; line-height: 1.75; max-width: 48ch; overflow: visible; }
+body.premium-catalogo .moto-card__tags { gap: 7px; }
+body.premium-catalogo .moto-tag { color: #315478; border: 1px solid #31547838; background: transparent; box-shadow: none; text-shadow: none; font-size: 9px; font-weight: 500; letter-spacing: .03em; padding: 4px 9px; }
+body.premium-catalogo .moto-tag--destacado::before { width: 4px; height: 4px; box-shadow: none; background: #315fa7; }
+body.premium-catalogo .moto-card__colores-texto { color: #657380; font-size: 10px; }
+body.premium-catalogo .moto-card__footer { padding: 16px 0 0; margin-top: auto; border-top: 1px solid #18283b1b; gap: 10px 22px; }
+body.premium-catalogo .moto-card__cta { margin-left: auto; color: #315fa7; font-size: 10px; font-weight: 500; letter-spacing: .04em; text-transform: none; }
+body.premium-catalogo .moto-card__price { color: #182b3f; }
+body.premium-catalogo .catalog-state { background: #e8eae5; }
+body.premium-catalogo .skel-card__media,
+body.premium-catalogo .skel-linea { background: #dae0dc; animation: none; }
+body.premium-catalogo .catalog-notice { color: #4e6071; background: #e8edf1; border-color: #1c436c30; }
+body.premium-catalogo .catalog-story { min-height: 250px; }
+body.premium-catalogo .catalog-story__claim { font-weight: 450; letter-spacing: -.055em; }
+body.premium-catalogo .catalog-outro { background: #e4e9e4; color: #1d3042; padding-block: 90px; }
+body.premium-catalogo .catalog-outro__title { color: #192d3d; font-size: clamp(32px,4.5vw,64px); font-weight: 450; letter-spacing: -.05em; text-transform: none; }
+body.premium-catalogo .catalog-outro__text { color: #5b6976; font-size: 14px; line-height: 1.8; }
+body.premium-catalogo .catalog-outro .btn { border-radius: 100px; font-size: 12px; }
+body.premium-catalogo .catalog-outro .btn-secondary { color: #20374e; border-color: #20374e55; }
+body.premium-catalogo .site-footer { background: #080c12; }
+body.premium-catalogo .catalog-section :is(a,button,input,select,summary):focus-visible { outline: 2px solid #315fa7; outline-offset: 4px; }
+
+@media (min-width: 861px) {
+  body.premium-catalogo .catalog-filters__barra { flex-direction: row; }
+  body.premium-catalogo .catalog-chips { display: flex; flex-wrap: wrap; }
+  body.premium-catalogo .catalog-chip { width: auto; padding: 0 0 10px; min-height: 44px; border: 0; border-bottom: 2px solid transparent; border-radius: 0; background: transparent; }
+  body.premium-catalogo .catalog-chip[aria-pressed="true"],
+  body.premium-catalogo .catalog-chip.is-active { border-bottom-color: #315fa7; }
+  body.premium-catalogo .catalog-panel__campos { flex-direction: row; flex-wrap: wrap; align-items: end; padding-top: 20px; margin-top: 6px; }
+  body.premium-catalogo .catalog-panel__campos .catalog-filter { width: auto; flex: 1 1 175px; }
+  body.premium-catalogo .catalog-panel .catalog-filter--search { display: flex; flex: 2 1 260px; }
+  body.premium-catalogo .catalog-panel__campos .form-select { width: 100%; min-width: 0; }
+  body.premium-catalogo .catalog-filter__reset { width: auto; padding-inline: 19px; }
+}
+@media (max-width: 860px) {
+  body.premium-catalogo .catalog-filters__titulo { color: #4f6273; font-size: 12px; letter-spacing: 0; }
+  body.premium-catalogo .catalog-filters__barra { flex-wrap: wrap; gap: 8px; }
+  body.premium-catalogo .catalog-chips { gap: 8px; }
+  body.premium-catalogo .catalog-chip { flex: 0 0 auto; background: #e4e8e2; border-color: transparent; min-height: 44px; padding-inline: 17px; }
+  body.premium-catalogo .catalog-chip[aria-pressed="true"],
+  body.premium-catalogo .catalog-chip.is-active { background: #dde6f3; border: 1px solid #315fa7; }
+  body.premium-catalogo .catalog-panel { background: #f5f5ef; color: #182536; }
+  body.premium-catalogo .catalog-panel__campos { margin-top: 0; border-top: 0; }
+  body.premium-catalogo .catalog-grid { gap: 38px 22px; }
+  body.premium-catalogo .moto-card__body { padding-top: 18px; }
+  body.premium-catalogo .moto-card__title { font-size: 27px; }
+}
+@media (max-width: 899px) {
+  body.premium-catalogo .catalog-grid { grid-template-columns: minmax(0,1fr); }
+}
+@media (max-width: 640px) {
+  body.premium-catalogo #main-content { padding-top: 71px; }
+  body.premium-catalogo .wrap { width: calc(100% - 40px); }
+  body.premium-catalogo .site-header { padding-inline: 20px; }
+  body.premium-catalogo .brand-logo { width: 130px; }
+  body.premium-catalogo .site-nav { gap: 13px; }
+  body.premium-catalogo .site-nav .nav-link { font-size: 10px; }
+  body.premium-catalogo .site-nav .nav-cta { padding: 10px 13px; min-height: 44px; }
+  body.premium-catalogo .catalog-intro { padding-block: 26px 39px; }
+  body.premium-catalogo .breadcrumb { margin-bottom: 25px; }
+  body.premium-catalogo .catalog-intro__title { font-size: clamp(38px,10.7vw,55px); max-width: 14ch; }
+  body.premium-catalogo .catalog-intro__lead { font-size: 12px; max-width: 38ch; margin-top: 18px; }
+  body.premium-catalogo .catalog-section { padding-block: 24px 62px; }
+  body.premium-catalogo .catalog-guide { margin-bottom: 24px; }
+  body.premium-catalogo .catalog-guide > summary { font-size: 12px; }
+  body.premium-catalogo .catalog-results__toolbar { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 8px; margin: 18px 0 23px; }
+  body.premium-catalogo .catalog-sort { margin-left: auto; gap: 6px; }
+  body.premium-catalogo .catalog-section .catalog-sort__select { max-width: 170px; font-size: 11px; padding-left: 4px; }
+  body.premium-catalogo .catalog-grid { grid-template-columns: minmax(0,1fr); gap: 38px; }
+  body.premium-catalogo .moto-card__title { font-size: 30px; }
+  body.premium-catalogo .moto-card__desc { font-size: 12px; }
+  body.premium-catalogo .moto-card__media { border-radius: 10px; }
+  body.premium-catalogo .moto-card__footer { padding-top: 13px; }
+  body.premium-catalogo .catalog-outro { padding-block: 65px; }
+  body.premium-catalogo .catalog-story { min-height: 200px; }
+}
+@media (max-width: 360px) {
+  body.premium-catalogo .brand-logo { width: 108px; }
+  body.premium-catalogo .site-header { padding-inline: 15px; }
+  body.premium-catalogo .site-nav { gap: 9px; }
+  body.premium-catalogo .site-nav .nav-cta { padding-inline: 10px; }
+  body.premium-catalogo .catalog-sort { width: 100%; margin-left: 0; justify-content: space-between; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.premium-catalogo .moto-card__img,
+  body.premium-catalogo .moto-card:hover .moto-card__img,
+  body.premium-catalogo .moto-card:focus-within .moto-card__img { transform: none; transition: none; }
+}

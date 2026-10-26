@@ -601,9 +601,11 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
 
     contenedor.appendChild(NS.ui.estadoCargando());
 
-    NS.data.cargar().then(function (estado) {
+    cargarTarjetas(contenedor).then(function (estado) {
       U.vaciar(contenedor);
       estadoActual = estado;
+      var guia = document.getElementById("catalogo-guia");
+      if (guia) guia.hidden = !estado.modelos.length || estado.estado === "error";
 
       if (dom.avisoPreview) dom.avisoPreview.hidden = !estado.preview;
 
@@ -735,10 +737,19 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
      modelos activos y destacados, y deriva el resto a catalogo.html.
      ================================================================ */
 
+  function cargarTarjetas(contenedor) {
+    var datos = NS.data.cargar();
+    var editorial = NS.editorial ? NS.editorial.cargar().catch(function () { return null; }) : Promise.resolve(null);
+    Promise.all([datos, editorial]).then(function (r) {
+      NS.ui.habilitarRecorridos(contenedor, r[0]);
+    }).catch(function () { /* The normal catalogue keeps its existing error state. */ });
+    return datos;
+  }
+
   function iniciarDestacados(contenedor) {
     var seccion = contenedor.closest("section");
 
-    NS.data.cargar().then(function (estado) {
+    cargarTarjetas(contenedor).then(function (estado) {
       var lista = NS.data.destacados(estado, MAX_DESTACADOS).filter(function (m) {
         // En portada solo se publica lo aprobado, aunque haya preview.
         return m.activo === true;

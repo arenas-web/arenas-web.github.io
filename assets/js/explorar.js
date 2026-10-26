@@ -188,7 +188,8 @@
   }
 
   /**
-   * Los planos de la película de fotos. Abre en el faro si existe y no
+   * Los planos de la película de fotos. Abre con la moto completa, visita
+   * el faro si existe y no
    * tiene capítulo propio —el plano de detalle con el que empiezan las
    * películas de producto—, se aleja a la lateral, visita las piezas de
    * los capítulos en su orden y vuelve a la lateral para entregar el
@@ -199,11 +200,10 @@
     var lat = fotos.lateral;
     if (!lat || !lat.recorte) return [];
     var usadas = paradas.map(function (p) { return p.asset; });
-    var planos = [];
+    var planos = [{ pieza: "lateral", foto: lat, rect: lat.recorte, cerca: false }];
     if (fotos.faro && fotos.faro.recorte && usadas.indexOf("faro") === -1) {
       planos.push({ pieza: "faro", foto: fotos.faro, rect: fotos.faro.recorte, cerca: true });
     }
-    planos.push({ pieza: "lateral", foto: lat, rect: lat.recorte, cerca: false });
     paradas.forEach(function (p) {
       if (p.asset === "lateral") return;
       if (p.foto && p.foto.recorte) planos.push({ pieza: p.asset, foto: p.foto, rect: p.foto.recorte, cerca: true });
@@ -293,7 +293,7 @@
       // Dominar/400, Discover/125 ST, Boxer/BM150X Disc.
       var corte = nombre.indexOf(" ");
       if (corte > 0) {
-        dom.titulo.appendChild(document.createTextNode(nombre.slice(0, corte)));
+        dom.titulo.appendChild(document.createTextNode(nombre.slice(0, corte) + " "));
         dom.titulo.appendChild(U.el("span", {}, nombre.slice(corte + 1)));
       } else {
         dom.titulo.textContent = nombre;
@@ -1081,6 +1081,7 @@
         pintarApertura(modelo, paradas);
         pintarCapitulos(modelo, paradas, cifras, fichaTecnica);
         pintarCierre(modelo);
+        if (NS.recorridos) NS.recorridos.pintar(r[0], modelo);
 
         conectarCabecera();
         conectarRevelados();
