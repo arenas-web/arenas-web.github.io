@@ -104,8 +104,23 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
   }
 
   /**
+   * El rectángulo de un recorte dentro de la fotografía maestra, o null.
+   * Todas las piezas de un modelo salen de la MISMA foto maestra que su
+   * lateral, así que con estos cuatro números se sabe dónde está el motor
+   * dentro de la lateral. Es lo que permite a explorar.html acercar la
+   * cámara a una pieza y fundirse con su recorte sin que nada salte.
+   */
+  function recorteDe(a) {
+    var r = a && a.recorte;
+    if (!r) return null;
+    var x = Number(r.x), y = Number(r.y), w = Number(r.w), h = Number(r.h);
+    if (!isFinite(x) || !isFinite(y) || !(w > 0) || !(h > 0)) return null;
+    return { x: x, y: y, w: w, h: h };
+  }
+
+  /**
    * Las fotografías publicables de un modelo, por clave de pieza.
-   * @returns {Object<string,{web:string,mini:string,resolucion:string}>}
+   * @returns {Object<string,{web:string,mini:string,resolucion:string,recorte:?Object}>}
    */
   function fotosDe(slug) {
     var registro = (cache.manifiesto.modelos || []).filter(function (m) { return m.modelo === slug; })[0];
@@ -116,7 +131,12 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
       // `ready` y con derivado web. Un asset sin `web` es un maestro de
       // decenas de megas: no se sirve a un navegador bajo ningún concepto.
       if (a && a.status === "ready" && a.web) {
-        salida[clave] = { web: a.web, mini: a.mini || a.web, resolucion: a.webResolucion || "" };
+        salida[clave] = {
+          web: a.web,
+          mini: a.mini || a.web,
+          resolucion: a.webResolucion || "",
+          recorte: recorteDe(a),
+        };
       }
     });
     return salida;
@@ -494,6 +514,7 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
     cargar: cargar,
     fotosDe: fotosDe,
     fichaDe: fichaDe,
+    fichaTecnicaDe: fichaTecnicaDe,
     tieneRecorrido: tieneRecorrido,
   };
 })(window.ARENAS_CATALOGO);

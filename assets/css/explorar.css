@@ -1,380 +1,1076 @@
 /* ================================================================
    ARENAS MOTOCICLETAS — explorar.css
-   Recorrido por la Pulsar 200 NS, pieza por pieza.
+   El recorrido pieza por pieza, para cualquier modelo del catálogo.
 
-   FONDO BLANCO, Y NO ES UN CAPRICHO
-   El resto del sitio es oscuro porque presenta motos sobre carretera.
-   Aquí no hay escena: hay producto. Sobre blanco, una pieza negra con
-   filo rojo se lee entera —cada tornillo, cada soldadura— y sobre negro
-   se pierde la mitad. Es la misma razón por la que un catálogo impreso
-   de recambios va sobre blanco y el anuncio va sobre paisaje.
+   DOS LUCES, Y NO ES UN CAPRICHO
+   La apertura es negra porque es una película: la moto aparece de la
+   oscuridad y la cámara la recorre, como en un estudio. Los capítulos
+   son blancos porque ahí ya no hay escena, hay producto: sobre papel,
+   una pieza negra con filo rojo se lee entera —cada tornillo, cada
+   soldadura— y sobre negro se pierde la mitad. Es la misma razón por la
+   que un catálogo impreso de recambios va sobre blanco y el anuncio va
+   sobre paisaje.
 
-   La fotografía llega con transparencia, así que el blanco no se pintó
-   detrás: se ve porque no hay nada tapándolo.
+   MONOCROMO
+   El color lo pone la moto. La página solo usa negro, papel y grises,
+   y el azul de la marca en dos detalles: el punto de la etiqueta y el
+   foco del teclado. Todo sale de los tokens de style.css.
+
+   MOVIMIENTO
+   Lo que depende del scroll va con `animation-timeline` dentro de
+   `@supports`: lo calcula el navegador, sin JavaScript en cada
+   fotograma. Donde no hay soporte, explorar.js añade `.ex-revela-io` y
+   los revelados se disparan una vez con IntersectionObserver. Con
+   «reducir movimiento» no se mueve nada y todo se ve desde el
+   principio.
    ================================================================ */
 
+/* Composición: película negra a pantalla completa → capítulos en papel
+   sobre una rejilla de 12 columnas con mucho aire → cifras en negro →
+   cierre en papel. */
 .explorar {
-  --ex-tinta: #101113;
-  --ex-suave: #626771;
-  --ex-linea: #dadddf;
-  --ex-acento: var(--brand-blue, #2859d8);
+  --ex-noche: var(--color-black-rich);
+  --ex-carbon: #1c1e23;
+  --ex-papel: var(--color-white);
+  --ex-placa: #e7e6e1;
+  --ex-tinta: var(--color-black);
+  --ex-gris: #5b6068;
+  --ex-niebla: #a3a8b0;
+  --ex-hueso: var(--color-white);
+  --ex-linea: rgba(16, 17, 19, 0.14);
+  --ex-linea-noche: rgba(244, 243, 239, 0.16);
+  --ex-acento: var(--brand-blue);
+  --ex-acento-noche: var(--brand-blue-bright);
 
-  background: #f4f3ef;
-  font-family: var(--font-body);
+  --ex-display: var(--font-display);
+  --ex-texto: var(--font-body);
+
+  /* Margen lateral: nunca menos de 16 px, y respeta la barra del
+     sistema de un móvil en horizontal. */
+  --ex-margen: clamp(16px, 4.5vw, 72px);
+  --ex-margen-izq: max(var(--ex-margen), env(safe-area-inset-left, 0px));
+  --ex-margen-der: max(var(--ex-margen), env(safe-area-inset-right, 0px));
+
+  /* Lento y sin rebote: la curva cinematográfica del sitio. */
+  --ex-curva: var(--ease-cinematic);
+
+  background: var(--ex-noche);
+  background-image: none;
+  color: var(--ex-hueso);
+  font-family: var(--ex-texto);
+}
+
+.explorar :focus-visible {
+  outline: 2px solid var(--ex-acento-noche);
+  outline-offset: 4px;
+}
+
+.explorar [data-tono="claro"] :focus-visible {
+  outline-color: var(--ex-acento);
+}
+
+/* ---------------- Piezas tipográficas compartidas ---------------- */
+
+/* Etiqueta pequeña y espaciada. Nombra, no anuncia. */
+.ex-etiqueta,
+.ex-num {
+  font-family: var(--ex-texto);
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* Botón píldora. Mayúsculas pequeñas y espaciadas, flecha que avanza
+   al pasar por encima: dice «esto lleva a algún sitio» sin más texto. */
+.ex-pildora {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75em;
+  min-height: 48px;
+  padding: 0 1.6rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--ex-texto);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-slow) var(--ease-out),
+    color var(--duration-slow) var(--ease-out),
+    border-color var(--duration-slow) var(--ease-out);
+}
+
+.ex-pildora::after {
+  content: "\2192";
+  font-size: 1.1em;
+  letter-spacing: 0;
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.ex-pildora:hover::after { transform: translateX(4px); }
+
+.ex-pildora--contorno {
+  border-color: rgba(244, 243, 239, 0.5);
+  color: var(--ex-hueso);
+}
+
+.ex-pildora--contorno:hover {
+  background: var(--ex-hueso);
+  border-color: var(--ex-hueso);
+  color: var(--ex-noche);
+}
+
+.ex-pildora--tinta {
+  background: var(--ex-tinta);
+  border-color: var(--ex-tinta);
+  color: var(--ex-papel);
+}
+
+.ex-pildora--tinta:hover {
+  background: transparent;
   color: var(--ex-tinta);
+}
+
+.ex-pildora--contorno-tinta {
+  border-color: var(--ex-tinta);
+  color: var(--ex-tinta);
+}
+
+.ex-pildora--contorno-tinta:hover {
+  background: var(--ex-tinta);
+  color: var(--ex-papel);
 }
 
 /* ---------------- Cabecera ---------------- */
 
+/* Flota sobre la película, transparente y con letra clara. Sobre los
+   capítulos blancos explorar.js le pone `.is-claro` y se vuelve papel. */
 .ex-header {
-  position: sticky;
-  top: 0;
-  z-index: 30;
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-6);
-  padding: var(--space-4) clamp(var(--space-5), 4vw, var(--space-10));
-  background: rgba(244, 243, 239, 0.94);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--ex-linea);
+  padding-top: calc(env(safe-area-inset-top, 0px) + clamp(14px, 2.2vh, 22px));
+  padding-bottom: clamp(14px, 2.2vh, 22px);
+  padding-left: var(--ex-margen-izq);
+  padding-right: var(--ex-margen-der);
+  color: var(--ex-hueso);
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--duration-slower) var(--ease-out),
+    color var(--duration-slower) var(--ease-out),
+    border-color var(--duration-slower) var(--ease-out);
 }
 
-/* El logo es blanco sobre fondo oscuro en el resto del sitio. Aquí se
-   invierte en vez de pedir otra versión del archivo. */
+.ex-header.is-claro {
+  background: rgba(244, 243, 239, 0.9);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--ex-tinta);
+  border-bottom-color: var(--ex-linea);
+}
+
+/* El logo es blanco de origen. Sobre papel se invierte en vez de pedir
+   otra versión del archivo. */
 .ex-header__marca img {
   display: block;
-  width: clamp(110px, 12vw, 150px);
+  width: clamp(104px, 10vw, 140px);
   height: auto;
-  filter: invert(1) brightness(0.25);
+  transition: filter var(--duration-slower) var(--ease-out);
 }
+
+.ex-header.is-claro .ex-header__marca img { filter: invert(1) brightness(0.25); }
 
 .ex-header__nav {
   display: flex;
   align-items: center;
-  gap: clamp(var(--space-4), 2vw, var(--space-6));
-  font-size: var(--text-sm);
+  gap: clamp(var(--space-4), 2.4vw, var(--space-8));
+  font-size: 0.68rem;
   font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
-.ex-header__nav a { color: var(--ex-tinta); text-decoration: none; }
-.ex-header__nav a:hover { color: var(--ex-acento); }
+.ex-header__nav a { color: inherit; text-decoration: none; }
+.ex-header__nav a:hover { opacity: 0.7; }
 
 .ex-header__cta {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-height: 44px;
-  padding: 9px 18px;
-  border-radius: 8px;
-  background: var(--ex-acento);
-  color: var(--color-white) !important;
+  min-height: 40px;
+  padding: 0 1.15rem;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-pill);
 }
 
-/* ---------------- Apertura ---------------- */
+.ex-header__nav .ex-header__cta:hover { opacity: 1; background: var(--ex-hueso); color: var(--ex-noche); border-color: var(--ex-hueso); }
+.ex-header.is-claro .ex-header__nav .ex-header__cta:hover { background: var(--ex-tinta); color: var(--ex-papel); border-color: var(--ex-tinta); }
 
-.ex-intro {
-  display: grid;
-  gap: clamp(var(--space-6), 4vw, var(--space-10));
-  align-items: center;
-  padding: clamp(var(--space-10), 7vw, var(--space-16, 64px)) clamp(var(--space-5), 5vw, var(--space-12));
-  max-width: 1500px;
-  margin-inline: auto;
-}
+/* ================================================================
+   APERTURA — LA PELÍCULA
+   ================================================================ */
 
-@media (min-width: 900px) {
-  .ex-intro { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); }
-}
-
-.ex-kicker {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: none;
-  color: var(--ex-acento);
-}
-
-.ex-titulo {
-  font-family: var(--font-display);
-  font-weight: 600;
-  text-transform: none;
-  line-height: 1.06;
-  letter-spacing: -0.045em;
-  font-size: clamp(2.75rem, 6.4vw, 5.25rem);
-  margin: var(--space-3) 0 var(--space-4);
-  color: var(--ex-tinta);
-}
-
-/* El número en otro peso: la línea se lee como una sola pieza y aun así
-   distingue familia de cilindrada, que es como se nombra una moto. */
-.ex-titulo span {
-  display: block;
-  color: var(--ex-acento);
-}
-
-.ex-lead {
-  font-size: clamp(1rem, 1.6vw, 1.2rem);
-  line-height: 1.65;
-  color: var(--ex-suave);
-  max-width: 40ch;
-}
-
-.ex-pista {
-  margin-top: clamp(var(--space-6), 4vw, var(--space-10));
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: none;
-  color: var(--ex-suave);
-}
-
-.ex-pista::after {
-  content: "";
-  display: block;
-  width: 1px;
-  height: 46px;
-  margin-top: var(--space-3);
-  background: var(--ex-linea);
-}
-
-.ex-intro__moto { margin: 0; }
-.ex-intro__moto img { display: block; width: 100%; height: auto; }
-
-/* ---------------- Recorrido ---------------- */
-
-.ex-recorrido {
-  display: grid;
-  gap: 0;
-  max-width: 1500px;
-  margin-inline: auto;
-  padding-inline: clamp(var(--space-5), 5vw, var(--space-12));
-}
-
-@media (min-width: 900px) {
-  .ex-recorrido { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); }
-}
-
-/* El escenario se queda quieto y los pasos pasan por debajo. Eso es lo
-   que produce la sensación de cámara: la moto no se va, cambia el plano. */
-.ex-escenario {
-  position: sticky;
-  top: clamp(90px, 12vh, 130px);
-  height: min(70vh, 620px);
-  display: grid;
-  align-content: center;
-  gap: var(--space-5);
-}
-
-.ex-escenario__caja {
+/* La sección mide varias pantallas y el escenario se queda fijo dentro:
+   ese recorrido de scroll es la duración de la película. La línea de
+   tiempo con nombre deja que la barra de progreso se llene sola. */
+.ex-film {
   position: relative;
-  width: 100%;
-  height: min(58vh, 520px);
+  height: 380vh;
+  background: var(--ex-noche);
+  view-timeline: --ex-film block;
 }
 
-/* Todas las vistas apiladas. Cambiar de pieza es cambiar cuál está
-   encendida, no montar y desmontar imágenes: montar provocaría un
-   parpadeo en blanco mientras la siguiente descarga. */
-.ex-vista {
+.ex-film__escena {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Estudio: un halo de carbón donde se apoya la moto y grano muy fino
+   para que el negro no parezca un hueco. El grano es un SVG en línea
+   (data:), que la política de contenido admite. */
+.ex-film__fondo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 62% 58% at 56% 56%, #26292f 0%, var(--ex-carbon) 38%, var(--ex-noche) 78%);
+}
+
+.ex-film__fondo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' opacity='.5' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.ex-film__poster,
+.ex-film__lienzo,
+.ex-film__3d,
+.ex-film__clip {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
+}
+
+/* La lateral quieta. Es el estado de partida y el de quien pide menos
+   movimiento; las capas de encima solo la tapan cuando están listas. */
+.ex-film__poster {
+  z-index: 1;
   object-fit: contain;
-  opacity: 0;
-  transform: scale(1.04);
-  transition:
-    opacity var(--duration-slower) var(--ease-cinematic),
-    transform var(--duration-page) var(--ease-cinematic);
-  will-change: opacity, transform;
-}
-
-.ex-vista.is-activa {
-  opacity: 1;
-  transform: none;
-}
-
-/* ---------------- Puntos de recorrido ---------------- */
-
-.ex-puntos {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-3);
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.ex-punto {
-  width: 26px;
-  height: 3px;
-  border-radius: 2px;
-  background: var(--ex-linea);
-  transition: background var(--duration-base) var(--ease-out),
-              width var(--duration-base) var(--ease-out);
-}
-
-.ex-punto.is-activo {
-  width: 44px;
-  background: var(--ex-acento);
-}
-
-/* ---------------- Pasos ---------------- */
-
-.ex-pasos { display: grid; }
-
-.ex-paso {
-  min-height: 78vh;
-  display: grid;
-  align-content: center;
-  gap: var(--space-3);
-  padding-block: clamp(var(--space-8), 6vw, var(--space-12));
-  opacity: 0.32;
+  padding: 16vh 7vw 20vh;
   transition: opacity var(--duration-slower) var(--ease-out);
 }
 
-.ex-paso.is-activo { opacity: 1; }
+.ex-film__poster[src="data:,"] { visibility: hidden; }
 
-.ex-paso__num {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--ex-acento);
+.ex-film__lienzo,
+.ex-film__3d,
+.ex-film__clip {
+  opacity: 0;
+  transition: opacity var(--duration-page) var(--ease-out);
 }
 
-.ex-paso__titulo {
-  font-family: var(--font-display);
-  letter-spacing: -0.045em;
-  font-weight: 600;
-  text-transform: none;
-  line-height: 1.06;
-  font-size: clamp(1.9rem, 4vw, 3rem);
-  color: var(--ex-tinta);
+.ex-film__lienzo { z-index: 2; }
+.ex-film__3d { z-index: 3; }
+.ex-film__3d canvas { display: block; width: 100%; height: 100%; }
+.ex-film__clip { z-index: 4; object-fit: cover; }
+
+.ex-film.is-pelicula .ex-film__lienzo { opacity: 1; }
+.ex-film.is-pelicula .ex-film__poster,
+.ex-film.is-3d .ex-film__poster,
+.ex-film.is-clip .ex-film__poster { opacity: 0; }
+.ex-film.is-3d .ex-film__3d { opacity: 1; }
+.ex-film.is-3d .ex-film__lienzo { opacity: 0; }
+.ex-film.is-clip .ex-film__clip { opacity: 1; }
+
+/* Velo para que el texto se lea sobre cualquier plano: oscurece el pie
+   y el lado del titular, nunca el centro donde está la pieza. */
+.ex-film__velo {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(11, 12, 14, 0.88) 0%, rgba(11, 12, 14, 0) 34%),
+    linear-gradient(to right, rgba(11, 12, 14, 0.62) 0%, rgba(11, 12, 14, 0) 52%),
+    linear-gradient(to bottom, rgba(11, 12, 14, 0.55) 0%, rgba(11, 12, 14, 0) 18%);
 }
 
-.ex-paso__texto {
-  font-size: clamp(0.98rem, 1.3vw, 1.08rem);
-  line-height: 1.72;
-  color: var(--ex-suave);
+/* ---------------- Texto de la apertura ---------------- */
+
+.ex-film__texto {
+  position: absolute;
+  z-index: 6;
+  top: clamp(6.5rem, 17vh, 10rem);
+  left: var(--ex-margen-izq);
+  right: var(--ex-margen-der);
+  display: grid;
+  justify-items: start;
+  gap: clamp(1rem, 2.2vh, 1.6rem);
+  transition:
+    opacity var(--duration-slower) var(--ease-out),
+    transform var(--duration-page) var(--ex-curva),
+    visibility 0s linear 0s;
+}
+
+/* Al empezar a bajar, el titular se retira y deja la película limpia.
+   `visibility` va con retraso para que el botón no siga recibiendo el
+   foco del teclado cuando ya no se ve. */
+.ex-film.is-avanzado .ex-film__texto {
+  opacity: 0;
+  transform: translate3d(0, -2.5rem, 0);
+  visibility: hidden;
+  transition:
+    opacity var(--duration-slower) var(--ease-out),
+    transform var(--duration-page) var(--ex-curva),
+    visibility 0s linear var(--duration-page);
+}
+
+.ex-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  color: var(--ex-niebla);
+}
+
+.ex-etiqueta::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  margin-right: 0.9em;
+  border-radius: 50%;
+  background: var(--ex-acento-noche);
+}
+
+.ex-etiqueta__plano { color: var(--ex-hueso); margin-left: 0.35em; }
+
+/* El titular: el nombre del modelo, enorme y fino. La familia arriba y
+   la cilindrada abajo, en gris, que es como se nombra una moto en la
+   calle («una Pulsar 200»). */
+.ex-titulo {
+  font-family: var(--ex-display);
+  font-weight: 300;
+  font-size: clamp(3.1rem, 10.4vw, 9rem);
+  line-height: 0.9;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--ex-hueso);
+  max-width: 11ch;
+}
+
+.ex-titulo span { display: block; color: var(--ex-niebla); }
+.ex-titulo:empty { min-height: 1.8em; }
+
+.ex-lead {
+  max-width: 34ch;
+  font-size: clamp(0.98rem, 1.25vw, 1.12rem);
+  line-height: 1.6;
+  color: var(--ex-niebla);
+}
+
+.ex-lead:empty { display: none; }
+
+/* ---------------- Rótulo del plano y progreso ---------------- */
+
+.ex-film__plano {
+  position: absolute;
+  z-index: 6;
+  top: clamp(5.5rem, 13vh, 7.5rem);
+  right: var(--ex-margen-der);
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ex-niebla);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.ex-film__plano b { color: var(--ex-hueso); font-weight: 600; }
+
+/* Indicador vertical: un riel que se llena con el scroll y una marca por
+   plano. El riel lo mueve el navegador (línea de tiempo `--ex-film`);
+   las marcas las enciende explorar.js por clase. */
+.ex-progreso {
+  position: absolute;
+  z-index: 6;
+  top: 50%;
+  right: var(--ex-margen-der);
+  display: flex;
+  gap: 0.8rem;
+  height: min(34vh, 260px);
+  transform: translateY(-50%);
+}
+
+.ex-progreso__riel {
+  position: relative;
+  width: 1px;
+  overflow: hidden;
+  background: var(--ex-linea-noche);
+}
+
+.ex-progreso__barra {
+  position: absolute;
+  inset: 0;
+  background: var(--ex-hueso);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.ex-progreso__marcas {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ex-progreso__marcas li {
+  width: 6px;
+  height: 1px;
+  background: rgba(244, 243, 239, 0.32);
+  transition:
+    width var(--duration-slow) var(--ease-out),
+    background-color var(--duration-slow) var(--ease-out);
+}
+
+.ex-progreso__marcas li.is-activo { width: 16px; background: var(--ex-hueso); }
+
+@supports (animation-timeline: view()) {
+  .ex-progreso__barra {
+    animation: ex-llena linear both;
+    animation-timeline: --ex-film;
+    animation-range: contain 0% contain 100%;
+  }
+}
+
+/* Sin líneas de tiempo el riel se quedaría vacío: mejor no enseñarlo. */
+@supports not (animation-timeline: view()) {
+  .ex-progreso__riel { display: none; }
+}
+
+/* ---------------- Pie de la apertura ---------------- */
+
+.ex-film__pie {
+  position: absolute;
+  z-index: 6;
+  left: var(--ex-margen-izq);
+  right: var(--ex-margen-der);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + clamp(1.25rem, 4vh, 2.5rem));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-5) var(--space-8);
+  padding-top: clamp(0.9rem, 2vh, 1.25rem);
+  border-top: 1px solid var(--ex-linea-noche);
+}
+
+/* Los tres datos del catálogo. El rótulo va en mayúsculas espaciadas;
+   el valor NO, porque «Nm» y «mm» cambian de significado en mayúsculas. */
+.ex-datos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3) clamp(var(--space-6), 4vw, var(--space-12));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ex-datos li { display: grid; gap: 0.2rem; min-width: 0; }
+
+.ex-datos__etiqueta {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ex-niebla);
+}
+
+.ex-datos__valor {
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: var(--ex-hueso);
+  font-variant-numeric: tabular-nums;
+}
+
+.ex-pista {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ex-niebla);
+  transition: opacity var(--duration-slower) var(--ease-out);
+}
+
+/* Una gota de luz que baja por un hilo: indica dirección sin rebotar. */
+.ex-pista::after {
+  content: "";
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(var(--ex-hueso), rgba(244, 243, 239, 0));
+  transform-origin: top;
+  animation: ex-gota 2.6s var(--ease-in-out) infinite;
+}
+
+.ex-film.is-avanzado .ex-pista { opacity: 0; }
+
+/* Aviso de que el 3D es una recreación. Pequeño, pero siempre a la
+   vista mientras se ve el modelo: no es una foto y no debe parecerlo. */
+.ex-film__nota {
+  position: absolute;
+  z-index: 6;
+  top: calc(clamp(5.5rem, 13vh, 7.5rem) + 1.6rem);
+  right: var(--ex-margen-der);
   max-width: 38ch;
+  font-size: 0.6rem;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: right;
+  color: var(--ex-niebla);
+  opacity: 0.8;
 }
 
-/* El dato va aparte y con filo: es lo único de este bloque que se puede
-   comprobar en una ficha técnica, y conviene que se distinga del texto
-   que solo describe. */
-.ex-paso__dato {
-  margin-top: var(--space-2);
-  padding-left: var(--space-4);
-  border-left: 2px solid var(--ex-acento);
-  font-size: var(--text-sm);
-  color: var(--ex-suave);
-}
+/* ================================================================
+   CAPÍTULOS
+   ================================================================ */
 
-.ex-paso__dato span {
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 600;
+.ex-capitulos {
+  background: var(--ex-papel);
   color: var(--ex-tinta);
-  margin-right: 6px;
 }
 
-/* ---------------- Cierre ---------------- */
+.ex-cap {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(1rem, 2.4vw, 2.5rem);
+  row-gap: clamp(1.5rem, 3.2vw, 2.75rem);
+  align-items: start;
+  max-width: 1560px;
+  margin-inline: auto;
+  padding-block: clamp(5.5rem, 15vh, 11rem);
+  padding-left: var(--ex-margen-izq);
+  padding-right: var(--ex-margen-der);
+}
+
+.ex-cap + .ex-cap { border-top: 1px solid var(--ex-linea); }
+
+/* «01 / HISTORIA»: el número en tinta, el tema en gris. La numeración
+   es real: es el orden del recorrido. */
+.ex-num { display: flex; gap: 0.7em; color: var(--ex-gris); }
+.ex-num b { color: var(--ex-tinta); font-weight: 600; }
+
+/* `hyphens` porque en español hay palabras como «REFRIGERACIÓN» que, a
+   este tamaño, no caben en media columna. Mejor un guion que un
+   desbordamiento. */
+.ex-cap__titulo {
+  font-family: var(--ex-display);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  color: var(--ex-tinta);
+}
+
+.ex-cap__texto,
+.ex-cap__cuerpo {
+  display: grid;
+  justify-items: start;
+  gap: clamp(1rem, 2vw, 1.5rem);
+  min-width: 0;
+}
+
+.ex-prosa {
+  max-width: 44ch;
+  font-size: clamp(1rem, 1.15vw, 1.08rem);
+  line-height: 1.75;
+  color: var(--ex-gris);
+}
+
+/* El dato que no subió a las cifras grandes: apoyo, debajo y con filo. */
+.ex-cap__dato {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 0.9rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ex-linea);
+  min-width: min(100%, 18rem);
+}
+
+.ex-cap__dato-valor {
+  font-family: var(--ex-display);
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ex-tinta);
+}
+
+.ex-cap__dato-etiqueta {
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ex-gris);
+}
+
+/* Placa de estudio: la fotografía de detalle es un recorte con fondo
+   transparente, así que se monta sobre un gris claro y se le funden los
+   bordes. Sin el fundido, el recorte cortaría la pieza con una línea
+   recta en mitad del papel. */
+.ex-placa {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: var(--ex-placa);
+}
+
+.ex-placa img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%),
+    linear-gradient(180deg, transparent 0, #000 7%, #000 93%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* ---- Composición (a): titular gigante + detalle pequeño ---- */
+
+.ex-cap--titular .ex-num { grid-column: 1 / 7; grid-row: 1; }
+
+.ex-cap--titular .ex-cap__titulo {
+  grid-column: 1 / 10;
+  grid-row: 2;
+  font-size: clamp(2.6rem, 7vw, 7.25rem);
+}
+
+/* La foto pequeña conserva su proporción —la lateral es apaisada, la
+   suspensión vertical—, con un tope de alto para que una pieza muy
+   esbelta no se coma la pantalla. */
+.ex-cap--titular .ex-cap__detalle {
+  grid-column: 10 / 13;
+  grid-row: 1 / 4;
+  align-self: center;
+  width: 100%;
+}
+
+.ex-cap--titular .ex-cap__detalle img { height: auto; max-height: 70vh; }
+
+.ex-cap--titular .ex-cap__cuerpo { grid-column: 5 / 10; grid-row: 3; }
+
+/* ---- Composición (b): imagen grande + texto escalonado ---- */
+
+.ex-cap--imagen { align-items: center; }
+
+.ex-cap--imagen .ex-cap__imagen {
+  grid-column: 1 / 8;
+  grid-row: 1;
+  aspect-ratio: 5 / 4;
+  width: 100%;
+}
+
+.ex-cap--imagen .ex-cap__texto { grid-column: 9 / 13; grid-row: 1; }
+
+.ex-cap--imagen .ex-cap__titulo { font-size: clamp(2.1rem, 4.1vw, 4.25rem); }
+
+/* ================================================================
+   CIFRAS
+   ================================================================ */
+
+/* Banda negra a mitad del recorrido: la moto entera en el centro y dos
+   o tres cifras enormes a los lados que suben al entrar. Las cifras son
+   las de la ficha editorial, que cita la ficha oficial de cada una. */
+.ex-cifras {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr) minmax(0, 1fr);
+  grid-template-areas:
+    "cab   cab   cab"
+    "c1    moto  c2"
+    ".     c3    .";
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem) clamp(1rem, 2.5vw, 2.5rem);
+  padding-block: clamp(5.5rem, 15vh, 10rem);
+  padding-left: var(--ex-margen-izq);
+  padding-right: var(--ex-margen-der);
+  background:
+    radial-gradient(ellipse 50% 55% at 50% 52%, #24272c 0%, var(--ex-noche) 72%);
+  color: var(--ex-hueso);
+}
+
+.ex-cifras__cab { grid-area: cab; display: flex; justify-content: space-between; gap: var(--space-6); }
+
+.ex-cifras__titulo {
+  font-family: var(--ex-texto);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ex-niebla);
+}
+
+.ex-cifras__moto { grid-area: moto; margin: 0; }
+.ex-cifras__moto img { display: block; width: 100%; height: auto; }
+
+.ex-cifra { display: grid; gap: 0.5rem; min-width: 0; }
+.ex-cifra:nth-of-type(1) { grid-area: c1; }
+.ex-cifra:nth-of-type(2) { grid-area: c2; text-align: right; justify-items: end; }
+.ex-cifra:nth-of-type(3) { grid-area: c3; text-align: center; justify-items: center; }
+
+.ex-cifra__etiqueta {
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--ex-niebla);
+}
+
+/* La cifra va en una sola línea y con dígitos de ancho fijo: mientras el
+   contador sube, el número no baila. */
+.ex-cifra__valor {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-family: var(--ex-display);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  white-space: nowrap;
+  color: var(--ex-hueso);
+}
+
+.ex-cifra__num {
+  font-size: clamp(2.8rem, 5.6vw, 6.2rem);
+  font-variant-numeric: tabular-nums;
+}
+
+.ex-cifra__unidad {
+  font-family: var(--ex-texto);
+  font-size: clamp(0.9rem, 1.2vw, 1.15rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--ex-niebla);
+}
+
+/* ================================================================
+   CIERRE
+   ================================================================ */
 
 .ex-cierre {
+  display: grid;
+  justify-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  padding-block: clamp(6rem, 17vh, 11rem);
+  padding-left: var(--ex-margen-izq);
+  padding-right: var(--ex-margen-der);
+  background: var(--ex-papel);
+  color: var(--ex-tinta);
   text-align: center;
-  padding: clamp(var(--space-12), 9vw, var(--space-20, 80px)) clamp(var(--space-5), 5vw, var(--space-12));
   border-top: 1px solid var(--ex-linea);
 }
 
 .ex-cierre__titulo {
-  font-family: var(--font-display);
-  letter-spacing: -0.045em;
-  font-weight: 600;
-  text-transform: none;
-  font-size: clamp(1.7rem, 4vw, 2.8rem);
-  line-height: 1.06;
+  max-width: 15ch;
+  font-family: var(--ex-display);
+  font-size: clamp(2.4rem, 6vw, 6rem);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  text-wrap: balance;
   color: var(--ex-tinta);
 }
 
 .ex-cierre__texto {
-  margin: var(--space-4) auto 0;
-  max-width: 46ch;
-  color: var(--ex-suave);
+  max-width: 44ch;
   line-height: 1.7;
+  color: var(--ex-gris);
 }
 
 .ex-cierre__acciones {
-  margin-top: clamp(var(--space-6), 4vw, var(--space-8));
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-5);
   align-items: center;
   justify-content: center;
+  gap: var(--space-4) var(--space-6);
+  margin-top: var(--space-4);
 }
 
 .ex-cierre__secundario {
-  font-size: var(--text-sm);
+  font-size: 0.7rem;
   font-weight: 600;
-  color: var(--ex-acento);
-  text-decoration: none;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ex-tinta);
+  text-decoration: underline;
+  text-decoration-color: var(--ex-linea);
+  text-underline-offset: 6px;
+  transition: text-decoration-color var(--duration-slow) var(--ease-out);
 }
 
-.ex-cierre__secundario:hover { text-decoration: underline; }
+.ex-cierre__secundario:hover { text-decoration-color: currentColor; }
 
-/* ---------------- Móvil ---------------- */
+/* ================================================================
+   MOVIMIENTO
+   ================================================================ */
+
+@keyframes ex-llena {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
+
+@keyframes ex-gota {
+  0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+  50%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  100% { transform: scaleY(1); transform-origin: top; opacity: 0; }
+}
+
+@keyframes ex-sube {
+  from { opacity: 0; transform: translate3d(0, 2.25rem, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes ex-desvela {
+  from { clip-path: inset(12% 7% 12% 7%); }
+  to   { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes ex-asienta {
+  from { transform: scale(1.16); }
+  to   { transform: scale(1); }
+}
+
+@keyframes ex-paralaje {
+  from { transform: translate3d(0, 14%, 0); }
+  to   { transform: translate3d(0, -14%, 0); }
+}
+
+@keyframes ex-acerca {
+  from { opacity: 0.25; transform: scale(0.9); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Con soporte de líneas de tiempo, todo lo ligado al scroll lo hace el
+   navegador. La curva es la misma de la casa: el movimiento llega y se
+   asienta, no rebota. Cada pieza del texto tiene su tramo de entrada un
+   poco más tarde que la anterior: ese desfase es el escalonado. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ex-revela {
+      animation: ex-sube var(--ex-curva) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 26%;
+    }
+    .ex-revela--1 { animation-range: entry 8% cover 30%; }
+    .ex-revela--2 { animation-range: entry 16% cover 34%; }
+    .ex-revela--3 { animation-range: entry 24% cover 38%; }
+    .ex-revela--4 { animation-range: entry 32% cover 42%; }
+
+    .ex-cap__imagen {
+      animation: ex-desvela var(--ex-curva) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 40%;
+    }
+
+    .ex-cap__imagen img {
+      animation: ex-asienta var(--ex-curva) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+
+    .ex-cifras__moto img {
+      animation: ex-acerca var(--ex-curva) both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+  }
+
+  /* El parallax pide espacio y ratón: en móvil se queda quieto. */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 900px) {
+    .ex-cap__detalle {
+      animation: ex-paralaje linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+/* Respaldo sin líneas de tiempo: explorar.js pone `.ex-revela-io` en
+   <html> y `.is-visible` en cada capítulo al entrar. Sin JavaScript no
+   existe la primera clase, y todo queda visible. */
+@supports not (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ex-revela-io .ex-revela {
+      opacity: 0;
+      transform: translate3d(0, 2rem, 0);
+      transition:
+        opacity var(--duration-page) var(--ease-out),
+        transform var(--duration-page) var(--ex-curva);
+    }
+    .ex-revela-io .is-visible .ex-revela { opacity: 1; transform: none; }
+    .ex-revela-io .is-visible .ex-revela--1 { transition-delay: 80ms; }
+    .ex-revela-io .is-visible .ex-revela--2 { transition-delay: 160ms; }
+    .ex-revela-io .is-visible .ex-revela--3 { transition-delay: 240ms; }
+    .ex-revela-io .is-visible .ex-revela--4 { transition-delay: 320ms; }
+
+    .ex-revela-io .ex-cap__imagen {
+      clip-path: inset(12% 7% 12% 7%);
+      transition: clip-path var(--duration-page) var(--ex-curva);
+    }
+    .ex-revela-io .ex-cap__imagen img {
+      transform: scale(1.16);
+      transition: transform var(--duration-page) var(--ex-curva);
+    }
+    .ex-revela-io .is-visible .ex-cap__imagen { clip-path: inset(0 0 0 0); }
+    .ex-revela-io .is-visible .ex-cap__imagen img { transform: none; }
+  }
+}
+
+/* ================================================================
+   MÓVIL
+   En vertical no hay sitio para dos columnas: la imagen va arriba y el
+   texto debajo, sin parallax. La película sigue, más corta.
+   ================================================================ */
 
 @media (max-width: 899px) {
-  /* En vertical no hay sitio para escenario fijo y texto al lado: la
-     imagen se queda arriba, pegada, y el texto pasa por debajo. */
-  .ex-escenario {
-    position: sticky;
-    top: 64px;
-    height: auto;
-    padding-block: var(--space-4);
-    background: rgba(244, 243, 239, 0.97);
-    backdrop-filter: blur(10px);
+  .ex-film { height: 300vh; }
+
+  .ex-film__texto { top: clamp(5.25rem, 12vh, 7rem); }
+  .ex-film__poster { padding: 30vh 5vw 30vh; }
+
+  .ex-film__plano { top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 11.5rem); }
+  .ex-film__nota { top: auto; bottom: calc(env(safe-area-inset-bottom, 0px) + 13.25rem); }
+
+  .ex-progreso { height: 22vh; gap: 0.5rem; }
+
+  .ex-film__pie { flex-direction: column; align-items: flex-start; }
+  .ex-datos { display: grid; gap: var(--space-3); }
+  .ex-pista { display: none; }
+
+  .ex-header__nav a:not(.ex-header__cta) { display: none; }
+
+  .ex-cap {
+    grid-template-columns: minmax(0, 1fr);
+    padding-block: clamp(4rem, 12vh, 6rem);
   }
-  .ex-escenario__caja { height: 42vh; }
-  .ex-paso { min-height: 62vh; }
+
+  .ex-cap--titular .ex-num,
+  .ex-cap--titular .ex-cap__titulo,
+  .ex-cap--titular .ex-cap__detalle,
+  .ex-cap--titular .ex-cap__cuerpo,
+  .ex-cap--imagen .ex-cap__imagen,
+  .ex-cap--imagen .ex-cap__texto {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .ex-cap--titular .ex-cap__detalle {
+    justify-self: end;
+    width: min(62%, 320px);
+  }
+
+  .ex-cifras {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: none;
+  }
+
+  .ex-cifras__cab,
+  .ex-cifras__moto,
+  .ex-cifra:nth-of-type(n) {
+    grid-area: auto;
+    text-align: left;
+    justify-items: start;
+  }
+
+  .ex-cifra {
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--ex-linea-noche);
+  }
 }
 
-/* ---------------- Movimiento reducido ---------------- */
+/* ================================================================
+   MOVIMIENTO REDUCIDO
+   Sin película, sin parallax, sin contadores: la lateral quieta y los
+   textos, todos visibles desde el principio.
+   ================================================================ */
 
 @media (prefers-reduced-motion: reduce) {
-  .ex-vista {
-    transition: opacity var(--duration-fast) linear;
+  .ex-film { height: auto; }
+  .ex-film__escena { position: relative; height: auto; min-height: 100svh; }
+  .ex-film__lienzo,
+  .ex-film__3d,
+  .ex-film__clip,
+  .ex-progreso,
+  .ex-film__plano,
+  .ex-etiqueta__plano,
+  .ex-pista { display: none; }
+  .ex-film__poster { opacity: 1 !important; }
+
+  .ex-film__texto,
+  .ex-film.is-avanzado .ex-film__texto {
+    opacity: 1;
     transform: none;
+    visibility: visible;
+    transition: none;
   }
-  .ex-vista.is-activa { transform: none; }
-  .ex-paso { transition: none; opacity: 1; }
-  .ex-punto { transition: none; }
+
+  .ex-header,
+  .ex-header__marca img,
+  .ex-pildora,
+  .ex-pildora::after { transition: none; }
 }
 
-/* ---------------- Piezas que rellena explorar.js ---------------- */
+/* ================================================================
+   ESTADOS ESPECIALES
+   ================================================================ */
 
-/* El kicker de cada parada viene de la ficha editorial («Frenada»,
-   «Mecánica»). Va sobre el título y en gris: nombra el tema, no lo
-   anuncia. */
-.ex-paso__kicker {
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  text-transform: none;
-  color: var(--ex-suave);
+/* Sin JavaScript no hay recorrido que montar: se ve el <noscript> y la
+   apertura no debe ocupar cuatro pantallas vacías. */
+html:not(.js) .ex-film { height: auto; }
+html:not(.js) .ex-film__escena { position: relative; height: 40vh; }
+
+.ex-capitulos .catalog-noscript {
+  max-width: 60ch;
+  margin-inline: auto;
+  padding: var(--space-12) var(--ex-margen-der) var(--space-12) var(--ex-margen-izq);
+  color: var(--ex-gris);
+  line-height: 1.7;
 }
 
-/* La apertura llega vacía y se rellena. Sin una altura mínima el bloque
-   mediría cero y el resto de la página daría un salto al montarse. */
-.ex-titulo:empty { min-height: clamp(2.75rem, 6.4vw, 5.25rem); }
-.ex-intro__moto img[src="data:,"] { visibility: hidden; }
-
-/* Las fotografías de detalle no comparten proporción: la suspensión es
-   vertical y el escape apaisado. `contain` las respeta y el escenario
-   mantiene siempre el mismo alto, que es lo que hace que el cambio de
-   pieza se lea como un cambio de plano y no como un salto de página. */
-.ex-vista { object-position: center; }
-
-/* ---------------- Cuando no hay recorrido ---------------- */
+.ex-capitulos .catalog-noscript a { color: var(--ex-tinta); text-decoration: underline; }
 
 /* Página en blanco no: quien llegue con un enlace viejo o a una moto sin
    fotografiar merece saber qué pasó y adónde ir. */
@@ -382,32 +1078,24 @@
   display: grid;
   gap: var(--space-5);
   justify-items: center;
-  text-align: center;
-  padding: clamp(var(--space-12), 12vh, 140px) clamp(var(--space-5), 5vw, var(--space-12));
   max-width: 52ch;
   margin-inline: auto;
+  padding-block: clamp(9rem, 22vh, 14rem) clamp(5rem, 12vh, 8rem);
+  padding-left: var(--ex-margen-izq);
+  padding-right: var(--ex-margen-der);
+  text-align: center;
 }
 
 .ex-vacio__titulo {
-  font-family: var(--font-display);
-  letter-spacing: -0.045em;
-  font-weight: 600;
-  text-transform: none;
-  line-height: 1.06;
-  font-size: clamp(1.6rem, 4vw, 2.6rem);
-  color: var(--ex-tinta);
+  font-family: var(--ex-display);
+  font-size: clamp(1.9rem, 4.6vw, 3.4rem);
+  font-weight: 300;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--ex-hueso);
 }
 
-.ex-vacio__texto {
-  color: var(--ex-suave);
-  line-height: 1.7;
-}
-
+.ex-vacio__texto { line-height: 1.7; color: var(--ex-niebla); }
 .ex-vacio__acciones { margin-top: var(--space-2); }
-
-/* Sin JavaScript no hay recorrido que desapilar: el contenido lo
-   construye explorar.js entero, igual que en la ficha de modelo. Se ve
-   el <noscript>, y el escenario vacío no debe ocupar media pantalla. */
-html:not(.js) .ex-escenario,
-html:not(.js) .ex-intro__moto { display: none; }
-html:not(.js) .ex-paso { opacity: 1; min-height: 0; }

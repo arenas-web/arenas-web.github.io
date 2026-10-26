@@ -92,7 +92,7 @@
     <link rel="preload" href="assets/fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="assets/fonts/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="assets/css/cinema-home.css" />
+    <link rel="stylesheet" href="assets/css/premium-home.css" />
     <link rel="canonical" href="https://arenas-web.github.io/" />
 
     <!-- LCP: el poster del hero es el primer elemento visual grande;
@@ -105,7 +105,7 @@
     <script>document.documentElement.classList.add("js");</script>
   </head>
 
-  <body>
+  <body class="home-premium">
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
 
     <!-- ============================================================
@@ -159,68 +159,41 @@
     ============================================================ -->
     <main id="main-content" role="main" tabindex="-1">
 
-        <section id="hero" class="cinema-story" aria-labelledby="hero-heading">
-          <div class="cinema-stage">
-            <span class="cinema-wordmark" aria-hidden="true">NS200</span>
-            <div id="cinema-viewport" class="cinema-viewport" role="img" aria-label="Modelo tridimensional de una Pulsar NS200 negra y roja">
-              <picture class="cinema-poster">
-                <source media="(max-width: 699px)" srcset="assets/3d/ns200/poster-mobile.webp" />
-                <img src="assets/3d/ns200/poster.webp" alt="Pulsar NS200 negra y roja, vista de tres cuartos en un estudio oscuro" width="1020" height="660" fetchpriority="high" />
-              </picture>
-            </div>
-            <div class="cinema-bottom">
-              <div class="cinema-caption"><span class="cinema-caption__line"></span><span>PULSAR NS200<br /><small>Una nueva perspectiva.</small></span></div>
-              <div class="cinema-tools" hidden>
-                <p id="cinema-status" class="cinema-status" role="status" aria-live="polite">Explora el modelo desde todos los ángulos.</p>
-                <div class="cinema-controls">
-                  <button id="cinema-start" type="button" aria-controls="cinema-viewport">Explorar en 3D <span aria-hidden="true">↗</span></button>
-                  <button id="cinema-toggle" type="button" aria-pressed="false" hidden>Girar la moto <span aria-hidden="true">↗</span></button>
-                  <div id="cinema-views" class="cinema-views" aria-label="Vistas del modelo" hidden>
-                    <button type="button" data-cinema-pose="whole" aria-label="Vista de tres cuartos">3/4</button>
-                    <button type="button" data-cinema-pose="side">Lateral</button>
-                    <button type="button" data-cinema-pose="front">Frontal</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <nav class="cinema-pagination" aria-label="Recorrido de la moto">
-              <a href="#hero" aria-label="Presentación" aria-current="step">01</a><span></span>
-              <a href="#ns200" aria-label="Descubrir la moto">02</a><span></span>
-              <a href="#tu-ruta" aria-label="Encuentra tu camino">03</a>
-            </nav>
+        <section id="hero" class="premium-studio" data-light="studio" aria-labelledby="hero-heading">
+          <div class="premium-studio__light" aria-hidden="true"></div>
+          <div class="premium-studio__type" aria-hidden="true">NS<span>200</span></div>
+          <div id="studio-viewport" class="studio-viewport" role="group" aria-label="Pulsar NS200, estudio interactivo en tres dimensiones">
+            <picture class="studio-poster">
+              <source media="(max-width: 699px)" srcset="assets/3d/ns200/poster-mobile.webp" />
+              <img src="assets/3d/ns200/poster.webp" width="1020" height="660" alt="Pulsar NS200 negra y roja, en un estudio de iluminación" fetchpriority="high" />
+            </picture>
           </div>
-          <div class="cinema-chapters">
-            <article class="cinema-chapter" data-chapter="0">
-              <div class="cinema-copy">
-                <p class="cinema-eyebrow">ARENAS MOTOCICLETAS <span> / </span> CUSCO, PERÚ</p>
-                <h1 id="hero-heading">Rutas que<br />te definen<span class="cinema-dot">.</span></h1>
-                <p class="cinema-lead">Libertad que te mueve.</p>
-                <p class="cinema-description">Desde la ciudad hasta la ruta andina. Encuentra la moto que encaje con tu camino.</p>
-                <div class="cinema-actions"><a href="catalogo.html" class="btn btn-primary">Explorar catálogo <span aria-hidden="true">↗</span></a><a href="#ns200" class="cinema-link">Descubre la moto <span aria-hidden="true">↓</span></a></div>
-                <a href="#ns200" class="cinema-scroll">DESLIZA PARA EXPLORAR <span aria-hidden="true">↓</span></a>
-              </div>
-            </article>
-            <article id="ns200" class="cinema-chapter" data-chapter="1" aria-labelledby="ns200-heading">
-              <div class="cinema-copy">
-                <p class="cinema-eyebrow">01 / EN PRIMER PLANO</p>
-                <h2 id="ns200-heading">Carácter a<br />primera vista<span class="cinema-dot">.</span></h2>
-                <p class="cinema-lead">Pulsar NS200.</p>
-                <p class="cinema-description">Líneas que marcan su presencia. Negro profundo, acentos rojos y cada detalle a tu alcance.</p>
-                <div class="cinema-actions"><a href="modelo.html?slug=pulsar-200-ns-ug2" class="cinema-link">Conocer el modelo <span aria-hidden="true">↗</span></a><a href="#contacto" class="cinema-link">Consultar disponibilidad <span aria-hidden="true">↗</span></a></div>
-                <p class="cinema-disclaimer">Representación 3D referencial. Consulta la versión y el equipamiento disponibles.</p>
-              </div>
-            </article>
-            <article id="tu-ruta" class="cinema-chapter" data-chapter="2" aria-labelledby="tu-ruta-heading">
-              <div class="cinema-copy">
-                <p class="cinema-eyebrow">02 / TU SIGUIENTE RUTA</p>
-                <h2 id="tu-ruta-heading">Tú eliges<br />el camino<span class="cinema-dot">.</span></h2>
-                <p class="cinema-lead">Nosotros te acompañamos.</p>
-                <p class="cinema-description">En ARENAS, tu búsqueda empieza por lo que necesitas. Ciudad, trabajo o aventura: conoce las opciones y conversa con nuestro equipo.</p>
-                <div class="cinema-actions"><a href="#camino" class="btn btn-primary">Encuentra tu moto <span aria-hidden="true">↓</span></a><a href="#equipo" class="cinema-link">Conoce ARENAS <span aria-hidden="true">↗</span></a></div>
-              </div>
-            </article>
+          <div class="premium-studio__rail"><span><i aria-hidden="true"></i> LA EXPERIENCIA ARENAS</span><span id="studio-view-name">01 / TRES CUARTOS</span></div>
+          <div class="premium-intro">
+            <p class="premium-kicker">ENCUENTRA TU PRÓXIMA RUTA</p>
+            <h1 id="hero-heading">Rutas que<br />te definen<span>.</span></h1>
+            <p class="premium-intro__lead">Libertad que te mueve.</p>
+            <p class="premium-intro__description">De la ciudad a nuevos horizontes.<br />Tu camino empieza en ARENAS.</p>
+            <div class="premium-intro__actions"><a class="btn btn-primary premium-primary" href="catalogo.html">Explorar catálogo <span aria-hidden="true">↗</span></a><a class="premium-tour" href="explorar.html?slug=pulsar-200-ns-ug2"><span class="premium-play" aria-hidden="true">▷</span> Ver recorrido</a></div>
           </div>
+          <div class="studio-scene-label"><span>PULSAR NS200</span><small>Carácter desde cualquier ángulo.</small></div>
+          <div class="studio-activation" hidden><p id="studio-status" role="status" aria-live="polite">Experiencia 3D</p><button id="studio-load" type="button">Entrar al estudio 3D <span aria-hidden="true">↗</span></button></div>
+          <div class="studio-hint" hidden><span aria-hidden="true">↔</span><span id="studio-hint-text">ARRASTRA PARA EXPLORAR</span></div>
+          <div class="studio-dock" aria-label="Controles del estudio" hidden>
+            <div class="studio-dock__views" role="group" aria-label="Elegir encuadre">
+              <button type="button" data-studio-pose="whole" aria-pressed="true"><span>01</span> General</button>
+              <button type="button" data-studio-pose="side" aria-pressed="false"><span>02</span> Lateral</button>
+              <button type="button" data-studio-pose="front" aria-pressed="false"><span>03</span> Frontal</button>
+              <button type="button" data-studio-pose="detail" aria-pressed="false"><span>04</span> Detalle</button>
+            </div>
+            <span class="studio-dock__divider" aria-hidden="true"></span>
+            <button id="studio-spin" type="button" class="studio-spin" aria-label="Activar giro automático" aria-pressed="false"><span aria-hidden="true">↻</span></button>
+          </div>
+          <div class="studio-lighting" role="group" aria-label="Elegir iluminación" hidden><span>AMBIENTE</span><button type="button" data-studio-light="studio" aria-pressed="true">Estudio</button><button type="button" data-studio-light="night" aria-pressed="false">Noche</button><button type="button" data-studio-light="light" aria-pressed="false">Claro</button></div>
+          <div class="premium-studio__foot"><a href="#camino">DESCUBRE TU CAMINO <span aria-hidden="true">↓</span></a><span>RECREACIÓN 3D REFERENCIAL · CONSULTA LA VERSIÓN DISPONIBLE</span></div>
         </section>
+        <section class="premium-editorial" aria-labelledby="premium-editorial-heading"><p class="premium-kicker">ARENAS / CUSCO, PERÚ</p><h2 id="premium-editorial-heading">No es solo llegar.<br /><span>Es cómo eliges moverte.</span></h2><div><p>Cada camino tiene una historia. Encuentra la moto que encaje con la tuya, conoce sus detalles y conversa con nuestro equipo.</p><a href="#equipo">Conoce ARENAS <span aria-hidden="true">↗</span></a></div></section>
+
 
 
         <!-- ============================================================
@@ -992,6 +965,6 @@
     <script src="assets/js/catalogo/catalogo-video.js" defer></script>
 
     <script src="script.js" defer></script>
-    <script type="module" src="assets/js/cinema-home.js"></script>
+    <script type="module" src="assets/js/premium-home.js"></script>
   </body>
 </html>

@@ -1,0 +1,97 @@
+{
+  "_nota": "Qué material de película tiene cada modelo en explorar.html, además de sus fotografías. Un modelo que no figure aquí recorre sus fotos de detalle (que siempre están). No se adivina si un archivo existe: si no está en esta lista, no se pide, y la consola no se llena de 404.",
+  "_prioridad": "clip > modelo3d > fotografías. El clip es material real del modelo; el 3D es una recreación; las fotos son el suelo que nunca falta. El 3D solo se descarga en escritorio con ratón, sin movimiento reducido y sin ahorro de datos: en el resto se ven las fotos.",
+  "_comoSeAnadeUnClip": "1) Codificar con un fotograma clave en CADA fotograma, para que saltar a cualquier instante sea inmediato: ffmpeg -i maestro.mov -an -vf scale=1920:-2 -c:v libx264 -preset slow -crf 23 -g 1 -keyint_min 1 -pix_fmt yuv420p -movflags +faststart recorrido.mp4 (ffmpeg está en ENTORNO.local/ffmpeg). 2) Poster: ffmpeg -i recorrido.mp4 -frames:v 1 recorrido-poster.webp. 3) Subir ambos a assets/explorar/<slug>/ y añadir aquí \"clip\": { \"video\": \"...\", \"poster\": \"...\" }. Conviene que dure 6-10 s: con -g 1 el archivo pesa de tres a cinco veces más que un vídeo normal.",
+  "_planos3d": "Cada plano es una toma de cámara sobre el modelo 3D. `pieza` es la clave del photo-manifest (da el rótulo del plano). `objetivo` es el punto al que mira la cámara, en metros del modelo, o \"centro\" para el centro de la moto. `rumbo` es el giro alrededor de la moto en grados: 0 = lateral derecho, 90 = de frente, -90 = desde atrás, 180 = lateral izquierdo. `altura` es la inclinación en grados. `distancia` en metros, o \"encuadre\" para que entre la moto entera.",
+  "recorridos": {
+    "pulsar-200-ns-ug2": {
+      "modelo3d": {
+        "glb": "assets/3d/ns200/ns200.glb",
+        "glbGz": "assets/3d/ns200/ns200.glb.gz",
+        "nota": "Recreación 3D ilustrativa · los detalles pueden variar según la versión",
+        "planos": [
+          {
+            "pieza": "lateral",
+            "objetivo": "centro",
+            "rumbo": 26,
+            "altura": 9,
+            "distancia": "encuadre"
+          },
+          {
+            "pieza": "faro",
+            "objetivo": [
+              0.58,
+              0.88,
+              0.11
+            ],
+            "rumbo": 58,
+            "altura": 4,
+            "distancia": 1.05
+          },
+          {
+            "pieza": "motor",
+            "objetivo": [
+              0.02,
+              0.5,
+              0.1
+            ],
+            "rumbo": 14,
+            "altura": 3,
+            "distancia": 1.05
+          },
+          {
+            "pieza": "freno",
+            "objetivo": [
+              0.68,
+              0.31,
+              0.1
+            ],
+            "rumbo": 26,
+            "altura": 2,
+            "distancia": 0.95
+          },
+          {
+            "pieza": "detalle-b",
+            "objetivo": [
+              -0.22,
+              0.62,
+              0.05
+            ],
+            "rumbo": -24,
+            "altura": 14,
+            "distancia": 1.35
+          },
+          {
+            "pieza": "transmision",
+            "objetivo": [
+              -0.5,
+              0.33,
+              -0.14
+            ],
+            "rumbo": -150,
+            "altura": 7,
+            "distancia": 1.0
+          },
+          {
+            "pieza": "tanque",
+            "objetivo": [
+              0.16,
+              0.86,
+              0.0
+            ],
+            "rumbo": -205,
+            "altura": 30,
+            "distancia": 1.25
+          },
+          {
+            "pieza": "lateral",
+            "objetivo": "centro",
+            "rumbo": -360,
+            "altura": 5,
+            "distancia": "encuadre"
+          }
+        ]
+      }
+    }
+  }
+}

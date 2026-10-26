@@ -2,19 +2,29 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <!-- Seguridad: misma política que index.html. Ver allí el porqué de
-         cada directiva y qué no cubre. -->
+         cada directiva y qué no cubre.
+
+         Las tres concesiones respecto a catalogo.html son las mismas que
+         ya hizo la portada para su moto 3D, y por el mismo motivo:
+         · 'wasm-unsafe-eval' — el descompresor meshopt del modelo es
+           WebAssembly. No abre `eval` de JavaScript.
+         · blob: en img-src y connect-src — GLTFLoader entrega las
+           texturas que vienen DENTRO del .glb como URLs blob: creadas por
+           el propio script. No sale nada a la red.
+         Una página que no tenga modelo 3D no usa ninguna de las tres. -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk='; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests"
+      content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk='; style-src 'self'; img-src 'self' data: blob:; media-src 'self'; font-src 'self'; connect-src 'self' blob: https://script.google.com https://script.googleusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src 'none'; upgrade-insecure-requests"
     />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
 
     <meta name="description" content="Recorre una Bajaj pieza por pieza: motor, suspensión, frenos y depósito, con las fotografías de detalle de cada modelo. ARENAS MOTOCICLETAS, Cusco." />
     <meta name="author" content="ARENAS MOTOCICLETAS" />
-    <meta name="theme-color" content="#ffffff" />
+    <!-- La página abre en negro: la barra del navegador móvil también. -->
+    <meta name="theme-color" content="#0b0c0e" />
 
     <!-- `noindex` a propósito: esta página es una plantilla paramétrica.
          Sin ?slug= no representa a ninguna moto, y dejar que un buscador
@@ -33,6 +43,7 @@
     <link rel="icon" href="data:," />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="assets/css/explorar.css" />
+    <link rel="stylesheet" href="assets/css/premium-explorar.css" />
 
     <script>document.documentElement.classList.add("js");</script>
   </head>
@@ -40,7 +51,10 @@
   <body class="explorar">
     <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
 
-    <header class="ex-header" role="banner">
+    <!-- La cabecera flota sobre la película y se vuelve opaca al entrar en
+         los capítulos blancos. Quién manda lo decide explorar.js mirando
+         qué sección tiene debajo (`data-tono`). -->
+    <header class="ex-header" id="ex-header" role="banner">
       <a class="ex-header__marca" href="index.html" aria-label="ARENAS MOTOCICLETAS, ir al inicio">
         <img src="assets/branding/arenas-logo-oficial.png" width="900" height="144" alt="" />
       </a>
@@ -53,66 +67,78 @@
     <main id="main-content" role="main" tabindex="-1">
 
       <!-- ============================================================
-           APERTURA
-           Fondo blanco y la moto entera, sin nada más. Es el único
-           momento en que se ve completa: a partir de aquí el recorrido
-           entra en las piezas.
+           APERTURA — LA PELÍCULA
+           Una sección alta con un escenario fijado (`sticky`) dentro: el
+           scroll de la página es el que mueve la cámara, sin secuestrarlo.
+           El escenario tiene tres capas posibles y solo una se enciende:
 
-           Todo lo que hay debajo llega vacío y lo rellena explorar.js
-           con los datos del catálogo y de la ficha editorial. No se
-           escribe aquí ningún texto de una moto concreta: esta página
-           sirve a las ocho.
+             · el lienzo, que recorre las fotos de detalle (siempre está)
+             · el modelo 3D, si `data/recorridos-medios.json` lo tiene
+             · el clip real, si ese mismo registro lo tiene
+
+           El <img> de debajo es la lateral quieta: es lo que ve quien
+           pide menos movimiento, quien no tiene JavaScript y cualquiera
+           mientras lo demás carga. Nada de este bloque trae texto escrito
+           para una moto: lo rellena explorar.js con el catálogo.
       ============================================================ -->
-      <section class="ex-intro" aria-labelledby="ex-titulo">
-        <div class="ex-intro__texto">
-          <p class="ex-kicker" id="ex-kicker"></p>
-          <h1 id="ex-titulo" class="ex-titulo"></h1>
-          <p class="ex-lead" id="ex-lead"></p>
-          <p class="ex-pista" aria-hidden="true">Baja para recorrerla</p>
-        </div>
+      <section class="ex-film" id="ex-film" data-tono="oscuro" aria-labelledby="ex-titulo">
+        <div class="ex-film__escena">
+          <div class="ex-film__fondo" aria-hidden="true"></div>
+          <img class="ex-film__poster" id="ex-poster" src="data:," alt="" decoding="async" fetchpriority="high" />
+          <canvas class="ex-film__lienzo" id="ex-lienzo" aria-hidden="true"></canvas>
+          <div class="ex-film__3d" id="ex-3d" aria-hidden="true"></div>
+          <video class="ex-film__clip" id="ex-clip" muted playsinline preload="none" aria-hidden="true" hidden></video>
+          <div class="ex-film__velo" aria-hidden="true"></div>
 
-        <figure class="ex-intro__moto">
-          <img id="ex-portada" src="data:," alt="" decoding="async" fetchpriority="high" />
-        </figure>
+          <div class="ex-film__texto" id="ex-film-texto">
+            <p class="ex-etiqueta">
+              <span id="ex-kicker"></span><span class="ex-etiqueta__plano" aria-hidden="true"> / <span id="ex-plano-num">01</span></span>
+            </p>
+            <h1 id="ex-titulo" class="ex-titulo"></h1>
+            <p class="ex-lead" id="ex-lead"></p>
+            <a class="ex-pildora ex-pildora--contorno" id="ex-ficha-hero" href="catalogo.html">Ver ficha completa</a>
+          </div>
+
+          <p class="ex-film__plano" id="ex-plano" aria-hidden="true"></p>
+          <div class="ex-progreso" aria-hidden="true">
+            <span class="ex-progreso__riel"><span class="ex-progreso__barra"></span></span>
+            <ol class="ex-progreso__marcas" id="ex-marcas"></ol>
+          </div>
+
+          <div class="ex-film__pie">
+            <ul class="ex-datos" id="ex-datos" aria-label="Datos principales"></ul>
+            <p class="ex-pista" aria-hidden="true">Baja para recorrerla</p>
+          </div>
+          <p class="ex-film__nota" id="ex-nota" hidden></p>
+        </div>
       </section>
 
       <!-- ============================================================
-           RECORRIDO POR LAS PIEZAS
-
-           El escenario se queda fijo y los pasos pasan por debajo. Cada
-           paso enciende su fotografía: no hay corte entre una pieza y la
-           siguiente, hay un cambio de plano sobre la misma moto.
-
-           Las fotografías son las mismas que ya usa la ficha del modelo,
-           tomadas pieza a pieza. Los textos también: son las razones de
-           compra que ya estaban escritas y revisadas.
+           CAPÍTULOS
+           Fondo blanco: aquí no hay escena, hay producto. Cada capítulo es
+           una de las paradas que ya existían (historia y razones de la
+           ficha), con su fotografía de detalle. Alternan dos
+           composiciones para que seis seguidas no se lean como una tabla.
       ============================================================ -->
-      <div class="ex-recorrido">
-        <div class="ex-escenario" aria-hidden="true">
-          <div class="ex-escenario__caja" id="ex-caja"></div>
-          <ol class="ex-puntos" id="ex-puntos"></ol>
-        </div>
-
-        <div class="ex-pasos" id="ex-pasos">
-          <noscript>
-            <p class="catalog-noscript">
-              Este recorrido necesita JavaScript para cargarse. La ficha completa de cada
-              moto está en el <a href="catalogo.html">catálogo</a>.
-            </p>
-          </noscript>
-        </div>
+      <div class="ex-capitulos" id="ex-capitulos">
+        <noscript>
+          <p class="catalog-noscript">
+            Este recorrido necesita JavaScript para cargarse. La ficha completa de cada
+            moto está en el <a href="catalogo.html">catálogo</a>.
+          </p>
+        </noscript>
       </div>
 
       <!-- ============================================================
            CIERRE
       ============================================================ -->
-      <section class="ex-cierre" aria-labelledby="ex-cierre-titulo">
+      <section class="ex-cierre" data-tono="claro" aria-labelledby="ex-cierre-titulo">
         <h2 id="ex-cierre-titulo" class="ex-cierre__titulo">¿Te la enseñamos en persona?</h2>
         <p class="ex-cierre__texto">
           Está en el salón, en la Av. La Cultura. Escríbenos y te contamos disponibilidad.
         </p>
-        <div class="ex-cierre__acciones">
-          <a class="btn btn-primary btn-hero" href="catalogo.html" id="ex-cierre-cta">Ver ficha completa</a>
+        <div class="ex-cierre__acciones" id="ex-cierre-acciones">
+          <a class="ex-pildora ex-pildora--tinta" href="catalogo.html" id="ex-cierre-cta">Ver ficha completa</a>
           <a class="ex-cierre__secundario" href="catalogo.html">Ver todos los modelos &rarr;</a>
         </div>
       </section>
@@ -120,10 +146,13 @@
 
     <!-- El mismo orden que modelo.html: utilidades, contrato de datos y
          datos antes que nada que los use. La capa editorial aporta los
-         textos y la resolución de fotografías; explorar.js solo compone. -->
+         textos y la resolución de fotografías; explorar.js solo compone.
+         El motor 3D NO está aquí: explorar.js lo importa bajo demanda y
+         solo cuando el modelo lo tiene y el equipo lo aguanta. -->
     <script src="assets/js/catalogo/catalogo-utils.js" defer></script>
     <script src="assets/js/catalogo/catalogo-schema.js" defer></script>
     <script src="assets/js/catalogo/catalogo-data.js" defer></script>
+    <script src="assets/js/catalogo/catalogo-whatsapp.js" defer></script>
     <script src="assets/js/catalogo/modelo-editorial.js" defer></script>
     <script src="assets/js/explorar.js" defer></script>
   </body>

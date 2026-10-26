@@ -1,0 +1,50 @@
+/* Original visual layer, informed by editorial automotive/product references.
+   The catalogue, media loading and scroll choreography remain Claude's. */
+.explorar { --ex-noche:#080c12; --ex-carbon:#18212d; --ex-papel:#f0f0ea; --ex-tinta:#132336; --ex-niebla:#8f9fb5; --ex-margen:clamp(22px,5.2vw,84px); }
+.ex-header { padding-block:22px; border-bottom:1px solid #ffffff0b; background:linear-gradient(#080c12b8,transparent); }
+.ex-header__marca img { width:180px; }
+.ex-header__nav { gap:32px; letter-spacing:.07em; font-size:10px; }
+.ex-header__cta { min-height:39px; padding-inline:22px; border-color:#d4dce95e; }
+.ex-header.is-claro { background:#f0f0eaeF; border-color:#18283b12; }
+.ex-film__fondo { background:radial-gradient(ellipse at 66% 48%,#344256 0,#1b2636 29%,#0c131e 58%,#080c12 84%); }
+.ex-film__fondo::after { opacity:.035; }
+.ex-film__3d { top:8%; bottom:8%; left:23%; right:-2%; width:auto; height:auto; }
+.ex-film__poster { padding:16vh 2vw 19vh 24vw; }
+.ex-film__velo { background:linear-gradient(0deg,#080c12f0,transparent 27%),linear-gradient(90deg,#080c12a1,transparent 47%),linear-gradient(#080c1240,transparent 16%); }
+.ex-film__texto { top:26%; max-width:40%; gap:23px; }
+.ex-etiqueta { font-size:8px; letter-spacing:.18em; color:#9fb0c9; }
+.ex-etiqueta::before { width:4px; height:4px; }
+.ex-titulo { font-size:clamp(48px,6.1vw,94px); line-height:1.04; font-weight:450; letter-spacing:-.065em; text-transform:none; max-width:10ch; }
+.ex-titulo span { color:#a8b7cd; font-size:.68em; font-weight:400; line-height:1.13; margin-top:9px; letter-spacing:-.045em; }
+.ex-lead { font-size:12px; line-height:1.8; max-width:28ch; color:#91a2bb; }
+.ex-pildora { font-size:9px; letter-spacing:.07em; min-height:44px; padding-inline:24px; border-width:1px; }
+.ex-film__plano { top:124px; font-size:8px; letter-spacing:.16em; }
+.ex-film__nota { top:153px; max-width:210px; font-size:8px; line-height:1.7; letter-spacing:.09em; opacity:.65; }
+.ex-film__pie { bottom:32px; padding-top:22px; border-top-color:#ffffff12; }
+.ex-datos { gap:35px; }
+.ex-datos__etiqueta { font-size:7px; letter-spacing:.15em; color:#6e85a4; }
+.ex-datos__valor { font-size:11px; color:#bdc9db; }
+.ex-pista { font-size:7px; letter-spacing:.14em; color:#90a2bf; }
+.ex-pista::after { animation:none; height:24px; }
+.ex-progreso { right:3%; height:180px; }
+.ex-progreso__marcas li { width:5px; }
+.ex-progreso__marcas li.is-activo { width:14px; background:#92b3ff; }
+.ex-cap { padding-block:clamp(75px,10vw,150px); }
+.ex-cap__titulo { font-weight:450; letter-spacing:-.05em; line-height:1.08; }
+.ex-prosa { color:#5d6974; font-size:14px; line-height:1.9; }
+.ex-num { color:#7c8998; font-size:9px; letter-spacing:.14em; }
+.ex-placa { border-radius:16px; overflow:hidden; background:#e0e3e1; }
+.ex-cap__dato-valor { color:#2c55a0; }
+.ex-cifras { background:#101923; border-radius:0; color:#eef1f4; }
+.ex-cifra__num { font-weight:400; letter-spacing:-.065em; }
+.ex-cifra__unidad { color:#8ca5c9; }
+.ex-cierre { padding-block:clamp(85px,11vw,160px); background:#e6eae6; }
+.ex-cierre__titulo { font-size:clamp(34px,5.8vw,82px); font-weight:450; line-height:1.05; letter-spacing:-.055em; max-width:13ch; margin-inline:auto; text-transform:none; }
+.ex-cierre__texto { max-width:38ch; font-size:13px; line-height:1.85; color:#65737e; margin-inline:auto; }
+@media(max-width:900px) and (min-width:700px){.ex-titulo{font-size:61px}.ex-film__texto{max-width:43%}.ex-film__3d{left:28%;right:-6%}.ex-datos{gap:23px}.ex-datos__valor{font-size:10px}}
+@media(max-width:699px){.ex-header{padding-block:18px}.ex-header__marca img{width:140px}.ex-header__nav{gap:15px;font-size:8px}.ex-header__cta{min-height:35px;padding-inline:16px}.ex-film__texto{top:17%;max-width:85%;gap:16px}.ex-titulo{font-size:clamp(43px,12vw,64px);max-width:12ch}.ex-titulo span{font-size:.64em;margin-top:7px}.ex-lead{font-size:11px;max-width:29ch}.ex-film__3d{left:0;right:0;top:25%;bottom:15%}.ex-film__poster{padding:32vh 2vw 16vh}.ex-film__plano{top:auto;bottom:150px;right:22px;font-size:7px}.ex-film__nota{top:auto;bottom:190px;max-width:190px;font-size:7px}.ex-film__pie{bottom:25px;padding-top:16px;gap:16px}.ex-datos{gap:10px 20px}.ex-datos__valor{font-size:10px}.ex-datos__etiqueta{font-size:6px}.ex-pista{font-size:6px}.ex-progreso{right:18px;height:130px}.ex-prosa{font-size:12px}.ex-cap{padding-block:70px}.ex-cap__titulo{font-size:33px}.ex-cierre__titulo{font-size:41px}.ex-cierre__texto{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.explorar .ex-film__texto{transform:none}.explorar .ex-pista::after{animation:none}}
+
+.ex-film__lienzo { left:23%; top:8%; width:79%; height:84%; }
+@media(max-width:699px) { .ex-film__lienzo { left:0; top:0; width:100%; height:100%; transform:translateY(14%) scale(.72); transform-origin:center; transition:transform 600ms ease; } .ex-film.is-avanzado .ex-film__lienzo { transform:none; } .ex-header__cta { min-height:44px; } }
+@media(prefers-reduced-motion:reduce) { .ex-film__lienzo { transition:none;transform:none; } }
