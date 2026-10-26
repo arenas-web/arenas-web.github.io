@@ -62,6 +62,7 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
   };
 
   var cache = { editorial: null, manifiesto: null, fichas: null };
+  var cargaPendiente = null;
 
   /* ---------------- Carga ---------------- */
 
@@ -80,7 +81,8 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
    */
   function cargar() {
     if (cache.editorial !== null && cache.manifiesto !== null) return Promise.resolve(cache);
-    return Promise.all([
+    if (cargaPendiente) return cargaPendiente;
+    cargaPendiente = Promise.all([
       pedirJson(CONFIG.rutaEditorial),
       pedirJson(CONFIG.rutaManifiesto),
       pedirJson(CONFIG.rutaFichas),
@@ -89,8 +91,10 @@ window.ARENAS_CATALOGO = window.ARENAS_CATALOGO || {};
         cache.editorial = r[0] || { modelos: {} };
         cache.manifiesto = r[1] || { modelos: [] };
         cache.fichas = (r[2] && r[2].fichas) || {};
+        cargaPendiente = null;
         return cache;
       });
+    return cargaPendiente;
   }
 
   /**

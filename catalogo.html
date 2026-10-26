@@ -66,6 +66,7 @@
 
     <script>document.documentElement.classList.add("js");</script>
       <link rel="stylesheet" href="assets/css/recorridos.css" />
+    <link rel="stylesheet" href="assets/css/brand-system.css" />
   </head>
 
   <body class="page-interior premium-catalogo">
@@ -146,6 +147,9 @@
           <p class="catalog-intro__lead">
             Conoce cada moto por sus detalles. Explora su recorrido y encuentra la que encaja contigo.
           </p>
+
+          <a class="catalog-intro__browse" href="#catalogo-grid">Ver toda la colección <span aria-hidden="true">↓</span></a>
+          <div id="catalog-showroom" class="pro-showroom" role="region" aria-label="Escaparate de motocicletas" hidden></div>
 
           <noscript>
             <p class="catalog-noscript">
@@ -415,5 +419,6 @@
     <script src="assets/js/catalogo/modelo-editorial.js" defer></script>
     <script src="assets/js/catalogo/catalogo-app.js" defer></script>
     <script src="assets/js/catalogo/catalogo-video.js" defer></script>
+    <script src="assets/js/catalogo/catalogo-showroom.js" defer></script>
   </body>
 </html>

@@ -1,0 +1,180 @@
+/* ARENAS / product-led design system. Local typography and approved media. */
+:root {
+  --pro-ink:#080d14; --pro-panel:#121d29; --pro-paper:#f3f5f6;
+  --pro-blue:#2859d8; --pro-cyan:#26b8ef; --pro-muted:#9baabc;
+  --pro-rule:#ffffff1a; --pro-radius:16px;
+}
+:is(.home-premium,.premium-catalogo,.premium-modelo,.explorar) { color-scheme:dark; }
+:is(.home-premium,.premium-catalogo,.premium-modelo) .site-header { background:#080d14f2; border-bottom:1px solid var(--pro-rule); }
+:is(.home-premium,.premium-catalogo,.premium-modelo) .site-nav .nav-link { font-size:12px; font-weight:550; letter-spacing:0; }
+:is(body.home-premium,body.premium-catalogo,body.premium-modelo) .site-nav .nav-cta { background:var(--pro-blue); color:#fff!important; box-shadow:none; }
+:is(.home-premium,.premium-catalogo,.premium-modelo) .btn-primary { background:var(--pro-blue); }
+:is(.home-premium,.premium-catalogo,.premium-modelo,.explorar) :is(a,button,input,select,summary):focus-visible { outline:2px solid var(--pro-cyan); outline-offset:5px; }
+.home-premium .wrap { width:90%; max-width:1400px; }
+body.premium-catalogo #catalogo-grid { scroll-margin-top:100px; }
+/* Stage: the motorcycle is the hero; controls form a quiet instrument rail. */
+.home-premium .premium-studio { min-height:790px; background:radial-gradient(ellipse at 70% 54%,#243b4e 0,#101d2c 33%,var(--pro-ink) 72%); }
+.home-premium .premium-studio__type { left:40%; top:24%; font-size:clamp(150px,23vw,370px); font-weight:800; letter-spacing:-.075em; opacity:.05; }
+.home-premium .premium-studio::after { content:''; position:absolute; z-index:0; width:62%; height:18%; right:2%; bottom:20%; border:1px solid #72c7ed24; border-radius:50%; transform:rotate(-7deg); box-shadow:0 0 90px #1c77b21a,inset 0 0 55px #53b9eb0c; pointer-events:none; }
+.home-premium .premium-studio__rail { top:110px; font-size:10px; color:#b3c3d3; }
+.home-premium .premium-studio__rail i { background:var(--pro-cyan); box-shadow:none; }
+.home-premium .premium-intro { top:23%; max-width:43%; left:5.3%; }
+.home-premium .premium-kicker { font-size:11px; letter-spacing:.13em; color:#9caec3; margin-bottom:24px; }
+.home-premium .premium-intro h1 { font-size:clamp(64px,7.2vw,116px); font-weight:720; line-height:.98; letter-spacing:-.065em; margin-bottom:28px; }
+.home-premium .premium-intro h1>span { color:var(--pro-cyan); }
+.home-premium .premium-intro__lead { font-size:20px; font-weight:500; color:#e0e9f0; }
+.home-premium .premium-intro__description { font-size:14px; color:#a0b1c3; max-width:34ch; margin-bottom:30px; }
+.home-premium .premium-primary { font-size:13px; min-height:52px; padding-inline:24px 16px; gap:22px; }
+.home-premium .premium-primary>span { width:29px; height:29px; }
+.home-premium .premium-tour { font-size:12px; }
+.home-premium .studio-viewport { width:72%; height:76%; right:-5%; top:14%; }
+.home-premium .studio-scene-label { right:6%; bottom:24%; }
+.home-premium .studio-scene-label>span { font-size:12px; }
+.home-premium .studio-scene-label small { font-size:11px; }
+.home-premium .studio-hint { left:66%; bottom:174px; font-size:10px; }
+.home-premium .studio-dock { left:66%; bottom:105px; border-radius:12px; background:#111e2de8; padding:6px; box-shadow:0 14px 40px #0003; }
+.home-premium .studio-dock button { border-radius:7px; font-size:12px; padding-inline:15px; }
+.home-premium .studio-dock button[aria-pressed='true'] { background:#e9f0f5; color:#111d2a; }
+.home-premium .studio-lighting { left:5.3%; right:auto; bottom:116px; gap:6px; }
+.home-premium .studio-lighting>span { display:none; }
+.home-premium .studio-lighting button { font-size:11px; min-height:40px; }
+.home-premium .premium-studio__foot { bottom:25px; padding-top:20px; font-size:9px; letter-spacing:.08em; }
+.home-premium .premium-studio__foot a { font-size:10px; }
+.home-premium .premium-studio[data-light='light'] { background:radial-gradient(ellipse at 70% 50%,#ffffff,#d7e2eb 60%,#bdcedb); }
+.home-premium .premium-studio[data-light='light'] .premium-intro h1 { color:#132333; }
+.home-premium .premium-studio[data-light='light'] :is(.premium-kicker,.premium-intro__description,.studio-hint,.studio-scene-label small) { color:#3a536d; }
+.home-premium .premium-studio[data-light='light'] .premium-intro__lead { color:#233a51; }
+/* Catalogue entrance: an actual, data-driven showroom above the inventory. */
+body.premium-catalogo { --catalog-paper:var(--pro-paper); }
+body.premium-catalogo .catalog-intro { min-height:530px; padding:32px 0 42px; background:radial-gradient(ellipse at 77% 50%,#20384c,var(--pro-ink) 68%); }
+body.premium-catalogo .catalog-intro__media { opacity:.09; }
+body.premium-catalogo .catalog-intro>.wrap { position:relative; }
+body.premium-catalogo .breadcrumb { margin-bottom:35px; }
+body.premium-catalogo .catalog-intro__kicker { font-size:11px; letter-spacing:.15em; color:var(--pro-cyan); }
+body.premium-catalogo .catalog-intro__title { font-weight:700; font-size:clamp(50px,5.6vw,88px); line-height:1; letter-spacing:-.065em; }
+body.premium-catalogo .catalog-intro__title span { color:#a8c0d4; }
+body.premium-catalogo .catalog-intro__lead { font-size:14px; color:#afbece; line-height:1.8; }
+body.premium-catalogo .has-showroom { min-height:530px; }
+body.premium-catalogo .has-showroom :is(.catalog-intro__title,.catalog-intro__lead) { max-width:43%; }
+.catalog-intro__browse { display:inline-flex; gap:35px; align-items:center; margin-top:26px; min-height:48px; padding-bottom:5px; border-bottom:1px solid #a0c8e260; color:#e6f3fc; text-decoration:none; font:550 12px 'Inter',sans-serif; }
+.catalog-intro__browse span { color:var(--pro-cyan); font-size:20px; }
+.pro-showroom { position:absolute; right:-2%; top:24px; width:58%; height:440px; }
+.pro-showroom[hidden] { display:none; }
+.pro-showroom__word { position:absolute; left:10%; right:0; top:4%; font:800 clamp(70px,9vw,146px)/1 'Manrope',sans-serif; letter-spacing:-.07em; color:#8fb4ce0f; pointer-events:none; overflow:hidden; white-space:nowrap; }
+.pro-showroom__visual { position:absolute; inset:10px 0 69px; }
+.pro-showroom__media,.pro-showroom__media picture { display:block; height:100%; width:100%; }
+.premium-catalogo .pro-showroom__media img { display:block; width:100%; height:100%; object-fit:contain; padding:0; animation:none; transform:scale(1.16); filter:drop-shadow(0 22px 18px #0002); }
+.pro-showroom__footer { position:absolute; bottom:0; left:9%; right:5%; display:flex; justify-content:space-between; gap:18px; padding-top:18px; border-top:1px solid var(--pro-rule); align-items:center; }
+.pro-showroom__category { display:block; color:#7e9bb3; font-size:10px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; }
+.pro-showroom__link { font:650 21px 'Manrope',sans-serif; letter-spacing:-.035em; color:#eef6fc; text-decoration:none; }
+.pro-showroom__link span { color:var(--pro-cyan); margin-left:12px; }
+.pro-showroom__controls { display:flex; align-items:center; gap:10px; }
+.pro-showroom__counter { font:500 11px 'Inter',sans-serif; color:#9eafbe; font-variant-numeric:tabular-nums; white-space:nowrap; margin-right:5px; }
+.pro-showroom__controls button { display:grid; place-items:center; width:44px; height:44px; border:1px solid #8aaac33d; border-radius:50%; background:transparent; color:#c6d8e6; font-size:21px; cursor:pointer; transition:background .2s,color .2s; }
+.pro-showroom__controls button:hover { background:var(--pro-cyan); color:var(--pro-ink); }
+/* Inventory: consistent plate, hierarchy and purposeful hover affordance. */
+body.premium-catalogo .catalog-section { color-scheme:light; --color-surface:var(--pro-paper); padding-top:38px; }
+body.premium-catalogo .catalog-grid { gap:60px 30px; counter-reset:inventory; }
+body.premium-catalogo .moto-card { counter-increment:inventory; position:relative; }
+body.premium-catalogo .moto-card__media { position:relative; overflow:hidden; border-radius:var(--pro-radius); background:radial-gradient(ellipse at 50% 35%,#fff,#e2e8ed 82%); border:1px solid #162c4310; aspect-ratio:1.5; }
+body.premium-catalogo .moto-card__media::before { content:counter(inventory,decimal-leading-zero); position:absolute; top:20px; left:22px; z-index:1; pointer-events:none; font:500 12px 'Inter',sans-serif; letter-spacing:.06em; color:#718598; }
+body.premium-catalogo .moto-card__media::after { content:'↗'; position:absolute; right:20px; bottom:20px; pointer-events:none; display:grid; place-items:center; width:43px; height:43px; border:1px solid #192d482b; border-radius:50%; color:#2b4260; font-size:23px; transition:background .25s,color .25s; }
+body.premium-catalogo .moto-card:hover .moto-card__media::after,body.premium-catalogo .moto-card:focus-within .moto-card__media::after { background:var(--pro-blue); color:#fff; border-color:var(--pro-blue); }
+body.premium-catalogo .moto-card__img { padding:28px 20px; transition:transform .5s cubic-bezier(.2,.7,.2,1); }
+body.premium-catalogo .moto-card:hover .moto-card__img { transform:scale(1.035) translateY(-3px); }
+body.premium-catalogo .moto-card__title { font-size:clamp(28px,3vw,44px); font-weight:650; letter-spacing:-.05em; color:#122b40; }
+body.premium-catalogo .moto-card__meta { font-size:11px; }
+body.premium-catalogo .moto-card__desc { font-size:14px; line-height:1.75; }
+body.premium-catalogo :is(.moto-card__cta,.moto-card__spec,.moto-card__colores-texto) { font-size:12px; }
+body.premium-catalogo .moto-card__footer { padding-top:18px; }
+body.premium-catalogo .catalog-guide { border-radius:0; border-color:#25445a22; }
+body.premium-catalogo .catalog-guide>summary { font-size:14px; }
+body.premium-catalogo .catalog-count { font-size:13px; }
+/* Editorial detail pages use the same typography and materials. */
+.explorar { --ex-papel:var(--pro-paper); --ex-tinta:#132c40; }
+.explorar .ex-header { background:#080d14ee; }
+.explorar .ex-header.is-claro { background:#f3f5f6f0; }
+.explorar .ex-header__nav { font-size:11px; }
+.explorar .ex-titulo { font-weight:700; font-size:clamp(54px,6.6vw,102px); letter-spacing:-.06em; }
+.explorar .ex-titulo span { font-weight:550; color:#a6bdd2; }
+.explorar .ex-lead { font-size:14px; color:#a8b8ca; }
+.explorar .ex-etiqueta { font-size:10px; color:var(--pro-cyan); }
+.explorar .ex-pildora { font-size:11px; border-color:#a2c2da70; }
+.explorar .ex-datos__etiqueta { font-size:9px; }
+.explorar .ex-datos__valor { font-size:12px; }
+.explorar .ex-cap__titulo { font-weight:650; font-size:clamp(34px,4.7vw,70px); text-transform:none; }
+.explorar .ex-prosa { font-size:16px; line-height:1.85; }
+.explorar .ex-placa { border-radius:var(--pro-radius); background:#e3e9ed; }
+.explorar .ex-cierre { background:#e4ebf0; }
+.explorar .ex-cierre__titulo { font-weight:650; }
+.explorar .ex-cierre__texto { font-size:15px; }
+.rec-coleccion { background:var(--pro-ink); }
+.rec-coleccion h2 { font-weight:650; }
+.rec-card { border-radius:var(--pro-radius); }
+.premium-modelo .modelo-titulo { font-weight:650; }
+.premium-modelo :is(.modelo-bloque__titulo,.ed-razon__titulo) { font-weight:650; }
+.premium-modelo :is(.ed-prosa,.modelo-prosa) { font-size:15px; }
+@media(min-width:1500px) { .home-premium .premium-intro { top:25%; } }
+@media(max-width:1100px) and (min-width:700px) {
+ .home-premium .premium-intro h1 { font-size:70px; }
+ .home-premium .studio-dock { left:64%; }.home-premium .studio-dock button { padding-inline:11px; }
+ .home-premium .site-nav { gap:16px; }.home-premium .site-nav .nav-link { font-size:11px; }
+ .pro-showroom__link { font-size:18px; }.pro-showroom__controls { gap:5px; }.pro-showroom__counter { display:none; }
+}
+@media(max-width:760px) {
+ body.premium-catalogo .catalog-intro { min-height:0; }
+ body.premium-catalogo .has-showroom { min-height:0; padding-bottom:28px; }
+ body.premium-catalogo .has-showroom :is(.catalog-intro__title,.catalog-intro__lead) { max-width:100%; }
+ body.premium-catalogo .catalog-intro__title { font-size:clamp(42px,8vw,64px); }
+ body.premium-catalogo .catalog-intro__lead { max-width:42ch; }
+ body.premium-catalogo .catalog-intro__browse { margin-top:12px; }
+ .pro-showroom { position:relative; width:100%; height:330px; top:auto; right:auto; margin-top:10px; }
+ .pro-showroom__visual { inset:0 -10px 65px; }.pro-showroom__word { top:30px; left:5%; font-size:90px; }
+ .pro-showroom__footer { left:0; right:0; padding-top:12px; }.pro-showroom__link { font-size:20px; }
+ .pro-showroom__counter { display:none; }
+ body.premium-catalogo .catalog-grid { gap:38px; }
+ body.premium-catalogo .moto-card__title { font-size:30px; }
+ body.premium-catalogo .moto-card__img { padding:24px 14px; }
+ .explorar .ex-prosa { font-size:14px; }.explorar .ex-cap__titulo { font-size:35px; }
+}
+@media(max-width:699px) {
+ :is(.home-premium,.premium-catalogo,.premium-modelo) .site-nav .nav-link { font-size:11px; }
+ .home-premium .site-nav .nav-link { font-size:16px; }
+ .home-premium .premium-studio { height:auto; min-height:950px; }
+ .home-premium .premium-studio__rail { top:99px; font-size:9px; }
+ .home-premium .premium-intro { top:147px; left:7%; max-width:87%; }
+ .home-premium .premium-kicker { font-size:10px; margin-bottom:21px; }
+ .home-premium .premium-intro h1 { font-size:clamp(54px,13vw,80px); line-height:.98; margin-bottom:22px; }
+ .home-premium .premium-intro__lead { font-size:17px; }
+ .home-premium .premium-intro__description { font-size:13px; margin-bottom:22px; }
+ .home-premium .premium-primary { font-size:12px; padding:12px 15px 12px 19px; gap:14px; }
+ .home-premium .premium-tour { font-size:11px; }
+ .home-premium .studio-viewport { width:110%; height:320px; right:-5%; top:445px; }
+ .home-premium .premium-studio__type { left:5%; top:530px; font-size:33vw; }
+ .home-premium .premium-studio::after { width:90%; right:5%; bottom:220px; height:90px; }
+ .home-premium .studio-hint { left:50%; bottom:181px; font-size:9px; }
+ .home-premium .studio-dock { left:50%; bottom:118px; padding:5px; max-width:94%; }
+ .home-premium .studio-dock button { font-size:11px; padding:9px 11px; }
+ .home-premium .studio-lighting { left:0; right:0; bottom:65px; }
+ .home-premium .studio-lighting button { font-size:11px; }
+ .home-premium .studio-scene-label { display:none; }
+ .home-premium .studio-activation { bottom:140px; }
+ .home-premium .premium-studio__foot { bottom:18px; font-size:8px; padding-top:12px; }
+ .home-premium .premium-studio__foot a { font-size:9px; }
+ .explorar .ex-titulo { font-size:clamp(45px,12vw,65px); }
+ .explorar .ex-lead { font-size:13px; }
+ .explorar .ex-etiqueta { font-size:9px; }
+ .explorar .ex-header__nav { font-size:9px; }
+ .explorar .ex-pildora { font-size:10px; }
+ .explorar .ex-datos__etiqueta { font-size:8px; }.explorar .ex-datos__valor { font-size:11px; }
+}
+@media(max-width:360px) {
+ .home-premium .premium-intro__actions { gap:12px; }.home-premium .premium-primary { padding-inline:14px 10px; gap:8px; font-size:11px; }
+ .home-premium .premium-tour { font-size:10px; }
+ .pro-showroom { height:300px; }.pro-showroom__link { font-size:17px; }.pro-showroom__controls { gap:5px; }
+ .explorar .ex-header__nav { font-size:8px; gap:9px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ body.premium-catalogo .moto-card__img { transition:none; }
+ body.premium-catalogo .moto-card:hover .moto-card__img { transform:none; }
+}
